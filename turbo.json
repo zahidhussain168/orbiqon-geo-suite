@@ -1,0 +1,42 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "MOCK_LLM",
+    "OPENAI_API_KEY",
+    "OPENAI_MODEL",
+    "ANTHROPIC_API_KEY",
+    "ANTHROPIC_MODEL",
+    "GEMINI_API_KEY",
+    "GEMINI_MODEL",
+    "PERPLEXITY_API_KEY",
+    "PERPLEXITY_MODEL",
+    "QUERY_ENGINE_SAMPLES",
+    "MAX_PROMPTS",
+    "MAX_SAMPLES",
+    "SCAN_RATE_LIMIT",
+    "DATABASE_URL",
+    "DIRECT_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

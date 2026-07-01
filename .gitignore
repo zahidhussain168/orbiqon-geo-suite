@@ -1,0 +1,32 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+.next/
+out/
+build/
+*.tsbuildinfo
+
+# turbo
+.turbo/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# prisma
+packages/db/prisma/*.db
+packages/db/prisma/migrations/**/migration_lock.toml.bak
+
+# local editor/agent settings (machine-specific)
+.claude/settings.local.json
+
+# misc
+.DS_Store
+*.log
+coverage/
+.vscode/
+.idea/

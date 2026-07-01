@@ -1,0 +1,35 @@
+{
+  "name": "@orbiqon/db",
+  "version": "0.0.0",
+  "description": "Shared Prisma client + schema for the Orbiqon GEO Suite (Supabase Postgres).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "prisma"],
+  "scripts": {
+    "build": "prisma generate && tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:migrate": "prisma migrate deploy",
+    "clean": "rimraf dist .turbo"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "prisma": "^6.1.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    @apply bg-ink font-sans text-slate-100 antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04';
+  }
+
+  /* Duotone ambient glow — subtle, not a flat purple gradient. */
+  .bg-glow {
+    background:
+      radial-gradient(60% 50% at 15% 0%, rgba(99, 102, 241, 0.14), transparent 60%),
+      radial-gradient(50% 45% at 100% 10%, rgba(34, 211, 238, 0.1), transparent 55%),
+      #090a11;
+  }
+
+  ::selection {
+    @apply bg-brand/30 text-white;
+  }
+
+  /* Visible focus ring for keyboard users (accessibility). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-ink;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.035] shadow-card backdrop-blur-sm;
+  }
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-ink/70 px-3.5 py-2.5 text-sm text-slate-100
+      placeholder:text-slate-500 transition-colors focus:border-brand/70 focus:bg-ink;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1
+      text-xs text-slate-300 transition-colors;
+  }
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-white/5;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Respect user motion preferences (accessibility). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

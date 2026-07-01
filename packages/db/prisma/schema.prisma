@@ -1,0 +1,86 @@
+// Orbiqon GEO Suite — shared schema (Supabase Postgres).
+// Kept portable: standard scalar types + arrays. `directUrl` is used for migrations while
+// `url` (the pooled pgbouncer connection) is used at runtime.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum ScanStatus {
+  pending
+  running
+  complete
+  error
+}
+
+/// One AmICited run: a brand + prompts checked across the AI engines.
+model Scan {
+  id              String     @id @default(cuid())
+  brandName       String
+  website         String?
+  category        String?
+  prompts         String[]
+  visibilityScore Int? // 0–100, computed once the run completes
+  status          ScanStatus @default(pending)
+  // Faithful snapshot of the computed ScanResult (engines, competitors, meta) for exact reload.
+  // Relational rows below remain for querying / future tools.
+  resultJson      Json?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  engineResults EngineResult[]
+  competitors   CompetitorMention[]
+  leads         Lead[]
+
+  @@index([createdAt])
+}
+
+/// One sampled answer from one engine for one prompt (honest per-sample rows).
+model EngineResult {
+  id          String   @id @default(cuid())
+  scanId      String
+  scan        Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  engine      String // 'chatgpt' | 'claude' | 'gemini' | 'perplexity' | 'google-ai-overviews' | 'chatgpt-web'
+  prompt      String
+  sampleIndex Int
+  cited       Boolean?
+  position    Int?
+  sentiment   String?
+  citations   String[]
+  model       String?
+  text        String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  @@index([scanId])
+  @@index([scanId, engine])
+}
+
+/// A competitor named across a scan — "who got named instead of you".
+model CompetitorMention {
+  id      String   @id @default(cuid())
+  scanId  String
+  scan    Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  name    String
+  count   Int      @default(1)
+  engines String[]
+
+  @@unique([scanId, name])
+  @@index([scanId])
+}
+
+/// Captured email (the funnel handoff / full-report request).
+model Lead {
+  id        String   @id @default(cuid())
+  email     String
+  scanId    String?
+  scan      Scan?    @relation(fields: [scanId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
