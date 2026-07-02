@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "amicited",
+      "name": "studio",
       "runtimeExecutable": "corepack",
-      "runtimeArgs": ["pnpm", "--filter", "@orbiqon/amicited", "dev"],
+      "runtimeArgs": ["pnpm", "--filter", "@orbiqon/studio", "dev"],
       "port": 3000
     }
   ]

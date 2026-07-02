@@ -86,3 +86,15 @@ model Lead {
 
   @@index([email])
 }
+
+/// Per-tool waitlist for coming-soon tools. Which tool collects the most emails
+/// tells us what to build next.
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String
+  toolSlug  String
+  createdAt DateTime @default(now())
+
+  @@unique([email, toolSlug])
+  @@index([toolSlug])
+}
