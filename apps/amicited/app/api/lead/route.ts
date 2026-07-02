@@ -8,6 +8,8 @@ export const dynamic = 'force-dynamic';
 const LeadSchema = z.object({
   email: z.string().email('A valid email is required').max(200),
   scanId: z.string().max(60).optional(),
+  /** Which capture produced the lead (e.g. 'full-report', 'fix-waitlist'). Additive, optional. */
+  source: z.string().max(40).optional(),
 });
 
 export async function POST(req: Request) {
@@ -29,7 +31,10 @@ export async function POST(req: Request) {
   const prisma = getPrisma();
   if (!prisma) {
     // Graceful degradation: no DB configured. Accept the email so the UX still works locally.
-    console.info('[amicited] lead captured (no DB configured):', parsed.data.email);
+    console.info(
+      `[amicited] lead captured (no DB configured, source=${parsed.data.source ?? 'unknown'}):`,
+      parsed.data.email,
+    );
     return NextResponse.json({ ok: true, persisted: false });
   }
 
@@ -39,7 +44,9 @@ export async function POST(req: Request) {
       ? (await prisma.scan.findUnique({ where: { id: parsed.data.scanId }, select: { id: true } }))
           ?.id
       : undefined;
-    await prisma.lead.create({ data: { email: parsed.data.email, scanId } });
+    await prisma.lead.create({
+      data: { email: parsed.data.email, scanId, source: parsed.data.source },
+    });
     return NextResponse.json({ ok: true, persisted: true });
   } catch (err) {
     console.error('[amicited] lead capture failed:', err);

@@ -24,6 +24,9 @@ packages/db/prisma/migrations/**/migration_lock.toml.bak
 # local editor/agent settings (machine-specific)
 .claude/settings.local.json
 
+# stray plugin/skill clones (not part of this project)
+superpowers/
+
 # misc
 .DS_Store
 *.log

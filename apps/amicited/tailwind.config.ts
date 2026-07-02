@@ -5,39 +5,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#090A11',
-        surface: '#0F111A',
+        // Single accent family: teal (Orbiqon GEO suite). Flat — no gradients.
         brand: {
-          DEFAULT: '#6366f1',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
+          DEFAULT: '#0d9488', // teal-600
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          600: '#0d9488',
+          700: '#0f766e',
+          800: '#115e59',
         },
       },
       fontFamily: {
-        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 24px -6px rgba(99,102,241,0.5)',
-        card: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 8px 30px -12px rgba(0,0,0,0.6)',
+        // Layered: ambient + direct, both subtle. Light-surface cards.
+        card: '0 1px 2px 0 rgb(15 23 42 / 0.04), 0 4px 16px -8px rgb(15 23 42 / 0.08)',
+        lift: '0 1px 2px 0 rgb(15 23 42 / 0.05), 0 8px 24px -12px rgb(15 23 42 / 0.14)',
       },
       keyframes: {
         'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        shimmer: {
-          '100%': { transform: 'translateX(100%)' },
-        },
       },
       animation: {
-        'fade-up': 'fade-up 0.4s ease-out both',
-        'fade-in': 'fade-in 0.3s ease-out both',
+        'fade-up': 'fade-up 0.35s ease-out both',
+        'fade-in': 'fade-in 0.25s ease-out both',
       },
     },
   },

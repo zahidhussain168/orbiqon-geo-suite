@@ -80,6 +80,8 @@ model Lead {
   email     String
   scanId    String?
   scan      Scan?    @relation(fields: [scanId], references: [id], onDelete: SetNull)
+  /// Which capture produced the lead: 'full-report', 'fix-waitlist', …
+  source    String?
   createdAt DateTime @default(now())
 
   @@index([email])

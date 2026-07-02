@@ -76,3 +76,55 @@ export const IconSpinner = (p: IconProps) => (
     <path d="M21 12a9 9 0 1 1-6.2-8.5" />
   </svg>
 );
+
+export const IconCopy = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="9" y="9" width="12" height="12" rx="2" />
+    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+  </svg>
+);
+
+export const IconRefresh = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6" />
+  </svg>
+);
+
+export const IconChevron = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
+export const IconLink = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" />
+    <path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" />
+  </svg>
+);
+
+export const IconPlus = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M12 5v14M5 12h14" />
+  </svg>
+);
+
+export const IconInfo = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5M12 8h.01" />
+  </svg>
+);
+
+export const IconAlert = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M12 3 2.5 19.5h19L12 3Z" />
+    <path d="M12 10v4M12 17h.01" />
+  </svg>
+);
+
+export const IconWrench = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M14.7 6.3a4.5 4.5 0 0 0-6 5.6L3 17.6V21h3.4l5.7-5.7a4.5 4.5 0 0 0 5.6-6L14.5 12l-2.5-2.5 2.7-3.2Z" />
+  </svg>
+);

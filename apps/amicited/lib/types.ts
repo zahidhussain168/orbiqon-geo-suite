@@ -1,5 +1,19 @@
 import type { EngineName, EngineKind } from '@orbiqon/query-engine';
 
+/** Per (engine × prompt) outcome — powers the "By prompt" matrix. */
+export interface PromptCell {
+  prompt: string;
+  cited: boolean;
+  bestPosition: number | null;
+}
+
+/** A representative sample answer for the expandable "sample answers" view. */
+export interface AnswerExample {
+  prompt: string;
+  text: string;
+  cited: boolean;
+}
+
 /** Per-engine summary aggregated across all of a scan's prompts. */
 export interface EngineSummary {
   engine: EngineName;
@@ -14,6 +28,10 @@ export interface EngineSummary {
   avgPosition: number | null;
   competitors: string[];
   citations: string[];
+  /** One entry per prompt (matrix rows). */
+  perPrompt: PromptCell[];
+  /** A couple of representative answer snippets, cited-first. */
+  examples: AnswerExample[];
 }
 
 export interface CompetitorTally {

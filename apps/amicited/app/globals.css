@@ -3,30 +3,21 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
   body {
-    @apply bg-ink font-sans text-slate-100 antialiased;
-    font-feature-settings: 'cv02', 'cv03', 'cv04';
-  }
-
-  /* Duotone ambient glow — subtle, not a flat purple gradient. */
-  .bg-glow {
-    background:
-      radial-gradient(60% 50% at 15% 0%, rgba(99, 102, 241, 0.14), transparent 60%),
-      radial-gradient(50% 45% at 100% 10%, rgba(34, 211, 238, 0.1), transparent 55%),
-      #090a11;
+    @apply bg-white font-sans text-slate-900 antialiased;
   }
 
   ::selection {
-    @apply bg-brand/30 text-white;
+    @apply bg-brand-100 text-slate-900;
   }
 
   /* Visible focus ring for keyboard users (accessibility). */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-ink;
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white;
   }
 
   ::-webkit-scrollbar {
@@ -34,34 +25,34 @@
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-white/10;
+    @apply rounded-full bg-slate-300;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-white/20;
+    @apply bg-slate-400;
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-white/10 bg-white/[0.035] shadow-card backdrop-blur-sm;
+    @apply rounded-xl border border-slate-200 bg-white shadow-card;
   }
   .field {
-    @apply w-full rounded-xl border border-white/10 bg-ink/70 px-3.5 py-2.5 text-sm text-slate-100
-      placeholder:text-slate-500 transition-colors focus:border-brand/70 focus:bg-ink;
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-[16px] text-slate-900
+      placeholder:text-slate-400 transition-colors focus:border-brand-600 sm:text-sm;
   }
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1
-      text-xs text-slate-300 transition-colors;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1
+      text-xs text-slate-600 transition-colors;
   }
-  /* Skeleton shimmer */
-  .skeleton {
-    @apply relative overflow-hidden rounded-lg bg-white/5;
+  .btn-primary {
+    @apply flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5
+      font-semibold text-white transition-colors hover:bg-brand-700 active:bg-brand-800
+      disabled:pointer-events-none disabled:opacity-50;
   }
-  .skeleton::after {
-    content: '';
-    @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
-    animation: shimmer 1.5s infinite;
+  .btn-secondary {
+    @apply inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-lg border border-slate-300
+      bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-400
+      hover:text-slate-900 disabled:pointer-events-none disabled:opacity-50;
   }
 }
 

@@ -1,50 +1,72 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
-const display = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-});
-const sans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 });
 
+const TITLE = 'AmICited — Am I cited by ChatGPT? Free AI visibility check';
+const DESCRIPTION =
+  'See whether ChatGPT, Claude, Perplexity & Gemini recommend your brand — or your competitors. ' +
+  'Real sampled citation rates in about 60 seconds. Free, no signup.';
+
 export const metadata: Metadata = {
-  title: 'AmICited — are you cited by the AIs?',
-  description:
-    'Free check: type your brand + a few prompts and see whether ChatGPT, Claude, Perplexity, ' +
-    'and Gemini cite you — who gets named instead, and where you rank.',
+  title: { default: TITLE, template: '%s · AmICited' },
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: 'AmICited',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+};
+
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'AmICited',
+  applicationCategory: 'BusinessApplication',
+  description: DESCRIPTION,
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'Orbiqon' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body>
-        <div className="pointer-events-none fixed inset-0 -z-10 bg-glow" aria-hidden />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         <div className="mx-auto flex min-h-dvh max-w-5xl flex-col px-5 py-6 sm:px-8">
           <header className="mb-10 flex items-center justify-between">
             <a href="/" className="group flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand to-cyan-400 font-display text-sm font-bold text-white shadow-glow">
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">
                 Ai
               </span>
-              <span className="font-display text-lg font-semibold tracking-tight">
-                AmICited
-              </span>
+              <span className="text-lg font-semibold tracking-tight">AmICited</span>
             </a>
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-widest text-slate-400">
+            <span className="hidden text-xs font-medium uppercase tracking-widest text-slate-400 sm:block">
               Orbiqon · GEO Suite
             </span>
           </header>
 
           <main className="flex-1">{children}</main>
 
-          <footer className="mt-20 border-t border-white/10 pt-6 text-xs leading-relaxed text-slate-500">
-            Citation is reported as a rate from multiple samples — never a fake yes/no. AI answers
-            swing over time; nothing here guarantees inclusion.
+          <footer className="mt-20 border-t border-slate-200 pt-6 text-xs leading-relaxed text-slate-500">
+            AI answers vary run to run. We sample each prompt multiple times and report the rate —
+            never a fake yes/no. Nothing here guarantees inclusion in AI answers.
           </footer>
         </div>
       </body>

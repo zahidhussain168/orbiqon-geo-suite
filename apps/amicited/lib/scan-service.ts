@@ -14,7 +14,13 @@ import {
 } from '@orbiqon/query-engine';
 import { computeVisibilityScore } from './scoring';
 import { suggestPrompts } from './prompts';
-import type { CompetitorTally, EngineSummary, ScanRequest, ScanResult } from './types';
+import type {
+  AnswerExample,
+  CompetitorTally,
+  EngineSummary,
+  ScanRequest,
+  ScanResult,
+} from './types';
 
 const MAX_COMPETITORS = 12;
 
@@ -139,6 +145,21 @@ function aggregateEngines(runs: RunResult[]): EngineSummary[] {
         : 'error';
     const meta = ENGINE_META[name];
     const anySample = runs.flatMap((r) => r.engines).find((e) => e.engine === name);
+
+    // Per-prompt matrix + example snippets, read from the raw runs for this engine.
+    const perPrompt = runs.map((run) => {
+      const eng = run.engines.find((e) => e.engine === name);
+      const cellPositions = (eng?.samples ?? [])
+        .map((s) => s.position)
+        .filter((p): p is number => typeof p === 'number');
+      return {
+        prompt: run.prompt,
+        cited: (eng?.citedCount ?? 0) > 0,
+        bestPosition: cellPositions.length ? Math.min(...cellPositions) : null,
+      };
+    });
+    const examples = pickExamples(runs, name);
+
     return {
       engine: name,
       displayName: meta.displayName,
@@ -155,8 +176,31 @@ function aggregateEngines(runs: RunResult[]): EngineSummary[] {
         : null,
       competitors: Array.from(acc.competitors),
       citations: Array.from(acc.citations),
+      perPrompt,
+      examples,
     };
   });
+}
+
+/** Up to 2 representative answer snippets for an engine, cited samples first. */
+function pickExamples(runs: RunResult[], name: EngineName): AnswerExample[] {
+  const all: AnswerExample[] = [];
+  for (const run of runs) {
+    const eng = run.engines.find((e) => e.engine === name);
+    for (const s of eng?.samples ?? []) {
+      if (s.text) all.push({ prompt: run.prompt, text: trimText(s.text), cited: s.cited === true });
+    }
+  }
+  const cited = all.filter((e) => e.cited);
+  const chosen = (cited.length ? cited : all).slice(0, 2);
+  // De-dupe by prompt so both snippets aren't the same question.
+  const seen = new Set<string>();
+  return chosen.filter((e) => (seen.has(e.prompt) ? false : (seen.add(e.prompt), true)));
+}
+
+function trimText(text: string, max = 260): string {
+  const flat = text.replace(/\s+/g, ' ').trim();
+  return flat.length > max ? `${flat.slice(0, max)}…` : flat;
 }
 
 function tallyCompetitors(runs: RunResult[]): CompetitorTally[] {
