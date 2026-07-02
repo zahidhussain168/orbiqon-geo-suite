@@ -18,7 +18,7 @@ export default function ToolsIndexPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">
           Diagnose, fix, and manage your AI visibility
         </h1>
-        <p className="mt-4 text-lg text-stone-600">
+        <p className="mt-4 text-lg text-muted">
           Six tools across three layers. The free checks pull you in, the fix tools do the work,
           and the platform runs it across every client.
         </p>
@@ -30,7 +30,7 @@ export default function ToolsIndexPage() {
             <h2 className="font-mono text-sm font-semibold uppercase tracking-wide text-ink">
               {layer.label}
             </h2>
-            <p className="text-sm text-stone-600">{layer.blurb}</p>
+            <p className="text-sm text-muted">{layer.blurb}</p>
           </div>
           <ToolsGrid tools={toolsByLayer(layer.id)} />
         </section>

@@ -95,7 +95,7 @@ export function ScanForm({
         <ResultsView result={result} onRerun={run} onNew={() => setPhase('idle')} />
         <EmailCapture scanId={result.id} />
         {result.id && (
-          <p className="text-center text-xs text-stone-500">
+          <p className="text-center text-xs text-dim">
             Shareable link:{' '}
             <a
               className="inline-flex items-center gap-1 font-medium text-brand-700 hover:underline"
@@ -114,7 +114,7 @@ export function ScanForm({
       {/* Hero, the form is the product */}
       <section className="relative text-center">
         <span className="hero-backdrop" aria-hidden />
-        <h1 className="word-reveal text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-[2.75rem] sm:leading-[1.1]">
+        <h1 className="word-reveal text-3xl font-bold leading-tight tracking-tight text-fg sm:text-[2.75rem] sm:leading-[1.1]">
           {HERO_WORDS.map((w, i) => (
             <span key={w} className="mr-[0.28em]" style={{ ['--wi' as string]: i }}>
               {w}
@@ -130,7 +130,7 @@ export function ScanForm({
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-stone-600">
+        <p className="mx-auto mt-4 max-w-xl text-muted">
           Check whether ChatGPT, Claude, Perplexity &amp; Gemini cite your brand. About 60 seconds.
           Free, no signup.
         </p>
@@ -260,19 +260,19 @@ export function ScanForm({
       </form>
 
       {/* Trust strip */}
-      <Reveal as="p" className="text-center text-xs text-stone-500">
+      <Reveal as="p" className="text-center text-xs text-dim">
         No signup · No credit card · Results in ~60s · Real sampled rates, not fake yes/no answers
       </Reveal>
 
       {/* Quiet examples row */}
-      <Reveal className="flex flex-wrap items-center justify-center gap-2 text-xs text-stone-400">
+      <Reveal className="flex flex-wrap items-center justify-center gap-2 text-xs text-dim">
         <span>Try an example:</span>
         {PRESETS.map((p) => (
           <button
             key={p.brand}
             type="button"
             onClick={() => applyPreset(p)}
-            className="font-medium text-stone-500 underline decoration-stone-300 underline-offset-2 hover:text-brand-700"
+            className="font-medium text-dim underline decoration-hair underline-offset-2 hover:text-brand-700"
           >
             {p.brand}
           </button>
@@ -295,10 +295,10 @@ function Field({
 }) {
   return (
     <label className="block space-y-1.5">
-      <span className="flex flex-wrap items-baseline gap-1.5 text-sm font-medium text-stone-700">
+      <span className="flex flex-wrap items-baseline gap-1.5 text-sm font-medium text-muted">
         {label}
         {required && <span className="text-brand-700">*</span>}
-        {hint && <span className="text-xs font-normal text-stone-400">· {hint}</span>}
+        {hint && <span className="text-xs font-normal text-dim">· {hint}</span>}
       </span>
       {children}
     </label>

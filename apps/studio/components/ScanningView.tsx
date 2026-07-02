@@ -52,15 +52,15 @@ export function ScanningView({ brand, prompts }: { brand: string; prompts: strin
 
   return (
     <div className="mx-auto w-full max-w-lg animate-fade-in py-8">
-      <h2 className="text-center text-xl font-semibold tracking-tight text-stone-900">
+      <h2 className="text-center text-xl font-semibold tracking-tight text-fg">
         Checking {brand} across {LIVE_ENGINES.length} engines
       </h2>
-      <p className="mt-1.5 text-center text-sm text-stone-500">
+      <p className="mt-1.5 text-center text-sm text-dim">
         We ask each engine multiple times per prompt and report the rate. This usually takes
         30–60&nbsp;seconds.
       </p>
 
-      <ul className="card mt-6 divide-y divide-stone-100 p-2">
+      <ul className="card mt-6 divide-y divide-hair p-2">
         {LIVE_ENGINES.map((engine, i) => {
           const at = Math.min(counts[i] ?? 0, totalPerEngine - 1);
           const prompt = prompts[at] ?? prompts[0] ?? '';
@@ -73,12 +73,12 @@ export function ScanningView({ brand, prompts }: { brand: string; prompts: strin
                 {engine.name[0]}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-stone-800">{engine.name}</p>
-                <p className="truncate text-xs text-stone-500" title={prompt}>
+                <p className="text-sm font-medium text-fg">{engine.name}</p>
+                <p className="truncate text-xs text-dim" title={prompt}>
                   Asking: “{prompt}”
                 </p>
               </div>
-              <span className="shrink-0 text-xs tabular-nums text-stone-500">
+              <span className="shrink-0 text-xs tabular-nums text-dim">
                 prompt {at + 1} of {totalPerEngine}
               </span>
               <IconSpinner className="h-4 w-4 shrink-0 text-brand-600" />
@@ -87,13 +87,13 @@ export function ScanningView({ brand, prompts }: { brand: string; prompts: strin
         })}
       </ul>
 
-      <div className="mt-5 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+      <div className="mt-5 h-1.5 w-full overflow-hidden rounded-full bg-elevated">
         <div
           className="h-full rounded-full bg-brand-600 transition-[width] duration-300 ease-out"
           style={{ width: `${pct}%` }}
         />
       </div>
-      <p className="mt-2 text-center text-xs text-stone-400">
+      <p className="mt-2 text-center text-xs text-dim">
         Sampling in progress, counters are estimates while we wait for the engines.
       </p>
     </div>

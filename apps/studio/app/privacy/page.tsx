@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         Placeholder text. Pending legal review before launch. Do not treat as final.
       </p>
       <h1 className="text-3xl font-semibold tracking-tight text-ink">Privacy Policy</h1>
-      <div className="mt-6 space-y-4 text-sm leading-relaxed text-stone-600">
+      <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted">
         <p>
           {brand.legalEntity} collects the minimum needed to run the tools: the brand and prompts you
           enter to run a check, and an email address only when you choose to receive a report or join

@@ -1,17 +1,10 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
-import { TOOLS, LAYERS, toolBySlug, type ToolLayer } from '@orbiqon/config';
+import { TOOLS, LAYERS, toolBySlug } from '@orbiqon/config';
 import { ComingSoonTool } from '@/components/marketing/ComingSoonTool';
 import { toolSteps, toolFaq } from '@/lib/tool-content';
-
-const PREVIEW_IMG: Record<ToolLayer, string> = {
-  DIAGNOSE: '/img/tech-grid.jpg',
-  FIX: '/img/tech-code.jpg',
-  MANAGE: '/img/tech-server.jpg',
-};
 
 export function generateStaticParams() {
   return TOOLS.map((t) => ({ slug: t.slug }));
@@ -74,13 +67,13 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
               <span className="h-1.5 w-1.5 rounded-full bg-brand-600" /> Live
             </span>
           ) : (
-            <span className="rounded-full bg-stone-100 px-2.5 py-1 font-mono text-[11px] font-medium uppercase tracking-wide text-stone-500">
+            <span className="rounded-full bg-elevated px-2.5 py-1 font-mono text-[11px] font-medium uppercase tracking-wide text-dim">
               Coming soon
             </span>
           )}
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">{tool.name}</h1>
-        <p className="mt-4 text-lg leading-relaxed text-stone-600">{tool.oneLiner}</p>
+        <p className="mt-4 text-lg leading-relaxed text-muted">{tool.oneLiner}</p>
         {tool.status === 'live' && (
           <Link href={tool.href} className="btn-primary mt-6 px-5">
             Open {tool.name}
@@ -96,7 +89,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           {tool.capabilities.map((cap) => (
             <li key={cap} className="card p-5">
               <Check className="h-5 w-5 text-brand-700" />
-              <p className="mt-3 text-sm leading-relaxed text-stone-700">{cap}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{cap}</p>
             </li>
           ))}
         </ul>
@@ -110,35 +103,26 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
             <li key={step.n}>
               <p className="font-mono text-sm font-semibold text-brand-700">{step.n}</p>
               <p className="mt-2 font-semibold text-ink">{step.title}</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-stone-600">{step.body}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted">{step.body}</p>
             </li>
           ))}
         </ol>
       </section>
 
-      {/* Preview area */}
+      {/* Preview area, crafted dark panel */}
       <section>
-        <div className="overflow-hidden rounded-lg border border-stone-200 shadow-lift">
-          <div className="flex items-center gap-1.5 border-b border-stone-200 bg-surface-alt px-4 py-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-            <span className="ml-3 font-mono text-xs text-stone-400">geostudio.ai{tool.href}</span>
+        <div className="overflow-hidden rounded-lg border border-hair bg-surface shadow-lift">
+          <div className="flex items-center gap-1.5 border-b border-hair px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-hair-strong" />
+            <span className="h-2.5 w-2.5 rounded-full bg-hair-strong" />
+            <span className="h-2.5 w-2.5 rounded-full bg-hair-strong" />
+            <span className="ml-3 font-mono text-xs text-dim">geostudio.ai{tool.href}</span>
           </div>
-          <div className="relative aspect-[16/9]">
-            <Image
-              src={PREVIEW_IMG[tool.layer]}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 900px"
-              className="object-cover"
-            />
-            <span className="absolute inset-0 bg-gradient-to-tr from-ink/70 via-ink/40 to-brand-800/40" />
-            <div className="absolute inset-0 grid place-items-center">
-              <p className="rounded-full border border-white/20 bg-ink/40 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-paper backdrop-blur">
-                {tool.status === 'live' ? 'Live now' : 'Product preview coming soon'}
-              </p>
-            </div>
+          <div className="dotgrid relative grid aspect-[16/9] place-items-center">
+            <span className="glow left-1/2 top-1/2 h-56 w-80 -translate-x-1/2 -translate-y-1/2 opacity-50" />
+            <p className="relative rounded-full border border-hair bg-surface px-4 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+              {tool.status === 'live' ? 'Live now' : 'Product preview coming soon'}
+            </p>
           </div>
         </div>
       </section>
@@ -153,11 +137,11 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
       {/* FAQ */}
       <section className="max-w-3xl">
         <h2 className="text-2xl font-semibold tracking-tight text-ink">Questions</h2>
-        <dl className="mt-6 divide-y divide-stone-200 border-y border-stone-200">
+        <dl className="mt-6 divide-y divide-hair border-y border-hair">
           {faq.map((f) => (
             <div key={f.q} className="py-5">
               <dt className="font-semibold text-ink">{f.q}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-stone-600">{f.a}</dd>
+              <dd className="mt-2 text-sm leading-relaxed text-muted">{f.a}</dd>
             </div>
           ))}
         </dl>

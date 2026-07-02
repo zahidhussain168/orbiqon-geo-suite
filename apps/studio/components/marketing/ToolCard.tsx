@@ -55,14 +55,14 @@ export function ToolCard({ tool, index = 0 }: { tool: Tool; index?: number }) {
             <span className="h-1.5 w-1.5 rounded-full bg-brand-600" /> Live
           </span>
         ) : (
-          <span className="rounded-full bg-stone-100 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-stone-500">
+          <span className="rounded-full bg-elevated px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wide text-dim">
             Soon
           </span>
         )}
       </div>
 
       <h3 className="mt-4 text-base font-semibold text-ink">{tool.name}</h3>
-      <p className="mt-1.5 flex-1 text-sm leading-relaxed text-stone-600">{tool.oneLiner}</p>
+      <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted">{tool.oneLiner}</p>
 
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-700">
         {tool.status === 'live' ? 'Open the tool' : 'Get on the waitlist'}

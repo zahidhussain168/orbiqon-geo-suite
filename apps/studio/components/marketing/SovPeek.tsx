@@ -14,7 +14,7 @@ export function SovPeek() {
     <div className="card p-5 sm:p-6" aria-hidden>
       <div className="flex items-center justify-between">
         <p className="eyebrow">Sample result</p>
-        <span className="font-mono text-[11px] text-stone-400">4 engines, sampled</span>
+        <span className="font-mono text-[11px] text-dim">4 engines, sampled</span>
       </div>
       <p className="mt-2 text-sm font-medium text-ink">
         Who AI names for <span className="font-mono text-brand-700">best issue tracker for teams</span>
@@ -23,28 +23,28 @@ export function SovPeek() {
         {ROWS.map((r, i) => (
           <li key={r.name} className="flex items-center gap-3">
             <span
-              className={`w-16 shrink-0 truncate text-sm ${r.you ? 'font-semibold text-ink' : 'text-stone-600'}`}
+              className={`w-16 shrink-0 truncate text-sm ${r.you ? 'font-semibold text-ink' : 'text-muted'}`}
             >
               {r.name}
             </span>
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-stone-100">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-elevated">
               <div
                 className="h-full rounded-full motion-safe:animate-[sov-grow_0.9s_cubic-bezier(0.22,0.61,0.36,1)_both]"
                 style={{
                   ['--sov' as string]: `${r.pct}%`,
                   width: `${r.pct}%`,
                   animationDelay: `${i * 90}ms`,
-                  background: r.you ? '#0D9488' : '#D8D2C9',
+                  background: r.you ? '#2DD4BF' : '#3A3A42',
                 }}
               />
             </div>
-            <span className="w-10 shrink-0 text-right font-mono text-xs tabular-nums text-stone-500">
+            <span className="w-10 shrink-0 text-right font-mono text-xs tabular-nums text-dim">
               {r.pct}%
             </span>
           </li>
         ))}
       </ul>
-      <p className="mt-4 border-t border-stone-100 pt-3 text-xs text-stone-500">
+      <p className="mt-4 border-t border-hair pt-3 text-xs text-dim">
         Rates from repeated samples, not a single yes or no.
       </p>
     </div>

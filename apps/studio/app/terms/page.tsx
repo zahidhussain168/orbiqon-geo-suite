@@ -15,7 +15,7 @@ export default function TermsPage() {
         Placeholder text. Pending legal review before launch. Do not treat as final.
       </p>
       <h1 className="text-3xl font-semibold tracking-tight text-ink">Terms of Service</h1>
-      <div className="mt-6 space-y-4 text-sm leading-relaxed text-stone-600">
+      <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted">
         <p>
           By using {brand.brandName} you agree to use the tools lawfully and not to abuse the free
           checks. The free tools are provided as is, without warranty.

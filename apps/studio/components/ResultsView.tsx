@@ -77,11 +77,11 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
             <p className="text-lg font-semibold" style={{ color }}>
               {verdict}
             </p>
-            <h1 className="mt-0.5 truncate text-3xl font-bold tracking-tight text-stone-900">
+            <h1 className="mt-0.5 truncate text-3xl font-bold tracking-tight text-fg">
               {result.brand}
             </h1>
-            <p className="mt-2.5 text-sm text-stone-600">
-              Cited by <span className="font-semibold text-stone-900">{citedEngines} of {shown.length}</span>{' '}
+            <p className="mt-2.5 text-sm text-muted">
+              Cited by <span className="font-semibold text-fg">{citedEngines} of {shown.length}</span>{' '}
               engines across {result.prompts.length} prompt{result.prompts.length === 1 ? '' : 's'},
               sampled {result.meta.samples}× each.
             </p>
@@ -118,10 +118,10 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
       </SpotlightCard>
 
       {/* Honest methodology, a feature, not fine print */}
-      <div className="flex items-start gap-2.5 rounded-lg border border-stone-200 bg-stone-50 px-4 py-3 text-sm text-stone-600">
+      <div className="flex items-start gap-2.5 rounded-lg border border-hair bg-elevated px-4 py-3 text-sm text-muted">
         <IconInfo className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
         <p>
-          <span className="font-medium text-stone-700">How to read this:</span> AI answers vary run
+          <span className="font-medium text-muted">How to read this:</span> AI answers vary run
           to run. We sample each prompt multiple times and report the rate, never a fake yes/no.
         </p>
       </div>
@@ -136,7 +136,7 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
               <button
                 key={e.engine}
                 onClick={() => toggle(e.engine)}
-                className={`chip transition ${on ? 'border-stone-300 bg-white text-stone-800 shadow-sm' : 'opacity-50'}`}
+                className={`chip transition ${on ? 'border-hair bg-surface text-fg shadow-sm' : 'opacity-50'}`}
                 aria-pressed={on}
               >
                 <span className="h-2 w-2 rounded-full" style={{ background: accent }} />
@@ -145,13 +145,13 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
             );
           })}
         </div>
-        <div className="inline-flex self-start rounded-lg border border-stone-200 bg-stone-50 p-0.5 text-xs sm:self-auto">
+        <div className="inline-flex self-start rounded-lg border border-hair bg-elevated p-0.5 text-xs sm:self-auto">
           {(['engine', 'prompt'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={`rounded-md px-3 py-1.5 font-medium transition ${
-                tab === t ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-800'
+                tab === t ? 'bg-surface text-fg shadow-sm' : 'text-dim hover:text-fg'
               }`}
             >
               {t === 'engine' ? 'By engine' : 'By prompt'}
@@ -181,10 +181,10 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
       {/* The gut-punch */}
       {result.competitors.length > 0 && (
         <div className="card animate-fade-up p-6">
-          <h2 className="text-lg font-semibold tracking-tight text-stone-900">
+          <h2 className="text-lg font-semibold tracking-tight text-fg">
             Who AI named instead of you
           </h2>
-          <p className="mt-1 text-sm text-stone-500">
+          <p className="mt-1 text-sm text-dim">
             Brands the engines recommended across your sampled answers.
           </p>
           <Leaderboard competitors={result.competitors} />
@@ -197,9 +197,9 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
       <MetaLine result={result} />
 
       {/* Watermark for shared screenshots */}
-      <p className="flex items-center justify-center gap-1.5 pt-1 text-xs text-stone-400">
+      <p className="flex items-center justify-center gap-1.5 pt-1 text-xs text-dim">
         Checked with
-        <span className="inline-flex items-center gap-1 font-semibold text-stone-500">
+        <span className="inline-flex items-center gap-1 font-semibold text-dim">
           <span className="grid h-4 w-4 place-items-center rounded bg-brand-600 text-[9px] font-bold text-white">
             Ai
           </span>
@@ -224,7 +224,7 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
   return (
     <SpotlightCard className="h-full p-4">
       <div className="flex items-center justify-between">
-        <span className="flex items-center gap-2 font-medium text-stone-800">
+        <span className="flex items-center gap-2 font-medium text-fg">
           <span
             className="grid h-6 w-6 place-items-center rounded-md text-[11px] font-bold"
             style={{ background: `${accent}1a`, color: accent }}
@@ -243,22 +243,22 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
         </span>
       </div>
 
-      <p className="mt-3 text-sm text-stone-600">
+      <p className="mt-3 text-sm text-muted">
         Cited in{' '}
-        <span className="font-semibold tabular-nums text-stone-900">
+        <span className="font-semibold tabular-nums text-fg">
           {engine.citedCount} of {engine.sampleCount}
         </span>{' '}
         runs
         {engine.bestPosition != null && (
           <>
             {' '}
-            · best position <span className="font-semibold tabular-nums text-stone-900">#{engine.bestPosition}</span>
+            · best position <span className="font-semibold tabular-nums text-fg">#{engine.bestPosition}</span>
           </>
         )}
       </p>
 
       <div className="mt-3 flex items-center gap-3">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-stone-100">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-elevated">
           <div
             className={`h-full rounded-full transition-[width] duration-700 ease-out ${
               cited ? 'bg-emerald-500' : 'bg-rose-400'
@@ -266,11 +266,11 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
             style={{ width: `${Math.max(pct, cited ? 6 : 0)}%` }}
           />
         </div>
-        <span className="w-9 text-right text-xs font-medium tabular-nums text-stone-500">{pct}%</span>
+        <span className="w-9 text-right text-xs font-medium tabular-nums text-dim">{pct}%</span>
       </div>
 
       {sources.length > 0 && (
-        <p className="mt-3 truncate text-xs text-stone-500">
+        <p className="mt-3 truncate text-xs text-dim">
           Sources:{' '}
           {sources.map((s, i) => (
             <span key={s.domain}>
@@ -279,7 +279,7 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
                 href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-stone-600 underline decoration-stone-300 underline-offset-2 hover:text-brand-700"
+                className="font-medium text-muted underline decoration-hair underline-offset-2 hover:text-brand-700"
               >
                 {s.domain}
               </a>
@@ -292,17 +292,17 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
         <>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-stone-500 hover:text-stone-800"
+            className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-dim hover:text-fg"
           >
             <IconChevron className={`h-3.5 w-3.5 transition-transform ${open ? 'rotate-180' : ''}`} />
             {open ? 'Hide' : 'Show'} sample answers
           </button>
           {open && (
-            <div className="mt-2 space-y-2 border-t border-stone-100 pt-3">
+            <div className="mt-2 space-y-2 border-t border-hair pt-3">
               {examples.map((s, i) => (
-                <div key={i} className="rounded-lg bg-stone-50 p-2.5 text-xs">
-                  <p className="mb-1 text-stone-400">“{s.prompt}”</p>
-                  <p className="leading-relaxed text-stone-600">{highlight(s.text, brand)}</p>
+                <div key={i} className="rounded-lg bg-elevated p-2.5 text-xs">
+                  <p className="mb-1 text-dim">“{s.prompt}”</p>
+                  <p className="leading-relaxed text-muted">{highlight(s.text, brand)}</p>
                 </div>
               ))}
             </div>
@@ -323,8 +323,8 @@ function ErrorCard({ engine }: { engine: EngineSummary }) {
   return (
     <div className="card h-full border-dashed p-4">
       <div className="flex items-center justify-between">
-        <span className="flex items-center gap-2 font-medium text-stone-600">
-          <span className="grid h-6 w-6 place-items-center rounded-md bg-stone-100 text-[11px] font-bold text-stone-400">
+        <span className="flex items-center gap-2 font-medium text-muted">
+          <span className="grid h-6 w-6 place-items-center rounded-md bg-elevated text-[11px] font-bold text-dim">
             {engine.displayName[0]}
           </span>
           {engine.displayName}
@@ -333,7 +333,7 @@ function ErrorCard({ engine }: { engine: EngineSummary }) {
           <IconAlert className="h-3.5 w-3.5" /> Unreachable
         </span>
       </div>
-      <p className="mt-3 text-sm text-stone-500">
+      <p className="mt-3 text-sm text-dim">
         Couldn&apos;t reach {engine.displayName}, excluded from the score. Re-run to try again.
       </p>
     </div>
@@ -344,8 +344,8 @@ function StubCard({ engine }: { engine: EngineSummary }) {
   return (
     <div className="card h-full p-4 opacity-75">
       <div className="flex items-center justify-between">
-        <span className="flex items-center gap-2 font-medium text-stone-600">
-          <span className="grid h-6 w-6 place-items-center rounded-md bg-stone-100 text-[11px] font-bold text-stone-400">
+        <span className="flex items-center gap-2 font-medium text-muted">
+          <span className="grid h-6 w-6 place-items-center rounded-md bg-elevated text-[11px] font-bold text-dim">
             {engine.displayName[0]}
           </span>
           {engine.displayName}
@@ -354,7 +354,7 @@ function StubCard({ engine }: { engine: EngineSummary }) {
           <IconClock className="h-3.5 w-3.5" /> coming soon
         </span>
       </div>
-      <p className="mt-3 text-xs text-stone-500">
+      <p className="mt-3 text-xs text-dim">
         This surface needs browser-based checking, it&apos;s on the roadmap.
       </p>
     </div>
@@ -366,11 +366,11 @@ function PromptMatrix({ result, shown }: { result: ScanResult; shown: EngineSumm
     <div className="card animate-fade-up overflow-x-auto p-4">
       <table className="w-full min-w-[520px] text-sm">
         <thead>
-          <tr className="text-left text-xs text-stone-400">
+          <tr className="text-left text-xs text-dim">
             <th className="pb-2 pr-3 font-medium">Prompt</th>
             {shown.map((e) => (
               <th key={e.engine} className="px-2 pb-2 text-center font-medium">
-                <span className="inline-flex items-center gap-1 text-stone-500">
+                <span className="inline-flex items-center gap-1 text-dim">
                   <span className="h-2 w-2 rounded-full" style={{ background: engineAccent(e.engine) }} />
                   {e.displayName}
                 </span>
@@ -380,8 +380,8 @@ function PromptMatrix({ result, shown }: { result: ScanResult; shown: EngineSumm
         </thead>
         <tbody>
           {result.prompts.map((prompt) => (
-            <tr key={prompt} className="border-t border-stone-100">
-              <td className="max-w-[240px] truncate py-2.5 pr-3 text-stone-700" title={prompt}>
+            <tr key={prompt} className="border-t border-hair">
+              <td className="max-w-[240px] truncate py-2.5 pr-3 text-muted" title={prompt}>
                 {prompt}
               </td>
               {shown.map((e) => {
@@ -392,7 +392,7 @@ function PromptMatrix({ result, shown }: { result: ScanResult; shown: EngineSumm
                       <span className="inline-flex items-center gap-1 text-emerald-600">
                         <IconCheck className="h-3.5 w-3.5" />
                         {cell.bestPosition != null && (
-                          <span className="text-xs tabular-nums text-stone-400">#{cell.bestPosition}</span>
+                          <span className="text-xs tabular-nums text-dim">#{cell.bestPosition}</span>
                         )}
                       </span>
                     ) : (
@@ -405,7 +405,7 @@ function PromptMatrix({ result, shown }: { result: ScanResult; shown: EngineSumm
           ))}
         </tbody>
       </table>
-      <p className="mt-3 text-xs text-stone-400">
+      <p className="mt-3 text-xs text-dim">
         ✓ = named in at least one sample for that prompt · #n = best position achieved
       </p>
     </div>
@@ -423,22 +423,22 @@ function Leaderboard({ competitors }: { competitors: CompetitorTally[] }) {
     <ul className="mt-4 space-y-2.5">
       {competitors.map((c, i) => (
         <li key={c.name} className="flex items-center gap-3">
-          <span className="w-5 shrink-0 text-right text-xs font-semibold tabular-nums text-stone-400">
+          <span className="w-5 shrink-0 text-right text-xs font-semibold tabular-nums text-dim">
             {i + 1}
           </span>
           <span
-            className={`w-28 shrink-0 truncate text-sm ${i === 0 ? 'font-semibold text-stone-900' : 'text-stone-700'}`}
+            className={`w-28 shrink-0 truncate text-sm ${i === 0 ? 'font-semibold text-fg' : 'text-muted'}`}
             title={c.name}
           >
             {c.name}
           </span>
-          <div className="h-2 flex-1 overflow-hidden rounded-full bg-stone-100">
+          <div className="h-2 flex-1 overflow-hidden rounded-full bg-elevated">
             <div
               className={`h-full rounded-full transition-[width] duration-700 ease-out ${i === 0 ? 'bg-brand-600' : 'bg-brand-600/60'}`}
               style={{ width: grown ? `${(c.count / max) * 100}%` : '0%' }}
             />
           </div>
-          <span className="w-10 shrink-0 text-right text-xs tabular-nums text-stone-500">
+          <span className="w-10 shrink-0 text-right text-xs tabular-nums text-dim">
             {c.count}×
           </span>
         </li>
@@ -449,7 +449,7 @@ function Leaderboard({ competitors }: { competitors: CompetitorTally[] }) {
 
 function MetaLine({ result }: { result: ScanResult }) {
   return (
-    <p className="text-center text-xs text-stone-400">
+    <p className="text-center text-xs text-dim">
       {result.meta.liveCalls} live calls · {result.meta.cachedCalls} cached
       {result.meta.cappedCalls > 0 && ` · ${result.meta.cappedCalls} skipped (cost cap)`}
       {result.meta.droppedPrompts > 0 && ` · ${result.meta.droppedPrompts} prompts dropped (cap)`}

@@ -34,7 +34,7 @@ export default function AgenciesPage() {
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Add a GEO line to every client. We generate the fixes.
         </h1>
-        <p className="mt-5 text-lg leading-relaxed text-stone-600">
+        <p className="mt-5 text-lg leading-relaxed text-muted">
           Sell AI visibility as a service without building the tooling. You run diagnose, fix and
           reporting under your own brand. We do the work underneath.
         </p>
@@ -46,10 +46,10 @@ export default function AgenciesPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {MATH.map((m) => (
             <div key={m.label} className="card p-6">
-              <p className="font-mono text-xs uppercase tracking-wide text-stone-500">{m.label}</p>
+              <p className="font-mono text-xs uppercase tracking-wide text-dim">{m.label}</p>
               <p
                 className={`mt-2 text-2xl font-semibold tracking-tight ${
-                  m.tone === 'accent' ? 'text-brand-700' : m.tone === 'muted' ? 'text-stone-500' : 'text-ink'
+                  m.tone === 'accent' ? 'text-brand-700' : m.tone === 'muted' ? 'text-dim' : 'text-ink'
                 }`}
               >
                 {m.value}
@@ -57,7 +57,7 @@ export default function AgenciesPage() {
             </div>
           ))}
         </div>
-        <p className="mt-4 max-w-2xl text-sm text-stone-600">
+        <p className="mt-4 max-w-2xl text-sm text-muted">
           A flat fee within your tier, regardless of client count. Most white-label tools stop at
           the report. Ours lets you generate and ship the fixes, so the retainer is defensible.
         </p>
@@ -68,7 +68,7 @@ export default function AgenciesPage() {
         <h2 className="text-2xl font-semibold tracking-tight text-ink">What you get</h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {INCLUDED.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 rounded-lg border border-stone-200 bg-surface p-4 text-sm text-stone-700">
+            <li key={item} className="flex items-start gap-2.5 rounded-lg border border-hair bg-surface p-4 text-sm text-muted">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
               {item}
             </li>
@@ -82,7 +82,7 @@ export default function AgenciesPage() {
         <h2 className="mt-4 text-xl font-semibold tracking-tight text-ink">
           Get in before public launch
         </h2>
-        <p className="mt-1.5 max-w-xl text-sm text-stone-600">
+        <p className="mt-1.5 max-w-xl text-sm text-muted">
           We are onboarding a small group of founding agencies at a locked rate. Join the waitlist
           and we will reach out.
         </p>

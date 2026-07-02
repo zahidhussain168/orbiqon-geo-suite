@@ -24,7 +24,7 @@ export function EmailCapture({ scanId }: { scanId: string | null }) {
 
   if (state === 'done') {
     return (
-      <div className="card flex items-center gap-3 border-emerald-200 bg-emerald-50 p-5 text-sm text-stone-700">
+      <div className="card flex items-center gap-3 border-emerald-200 bg-emerald-50 p-5 text-sm text-muted">
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700">
           <IconCheck />
         </span>
@@ -35,11 +35,11 @@ export function EmailCapture({ scanId }: { scanId: string | null }) {
 
   return (
     <form onSubmit={onSubmit} className="card p-6">
-      <h3 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-stone-900">
+      <h3 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-fg">
         <IconMail className="text-brand-700" />
         Get the full report
       </h3>
-      <p className="mt-1 text-sm text-stone-600">
+      <p className="mt-1 text-sm text-muted">
         Every run, every prompt, full competitor detail, as a shareable report, by email.
       </p>
       <div className="mt-4 flex flex-col gap-2 sm:flex-row">

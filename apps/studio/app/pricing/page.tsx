@@ -60,7 +60,7 @@ export default function PricingPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">
           Free to diagnose. Fair to fix.
         </h1>
-        <p className="mt-4 text-lg text-stone-600">
+        <p className="mt-4 text-lg text-muted">
           The diagnosis is free and unlimited. The fix tools launch at honest indie prices. No fake
           testimonials, no promises we cannot keep.
         </p>
@@ -76,16 +76,16 @@ export default function PricingPage() {
               <h2 className="font-mono text-sm font-semibold uppercase tracking-wide text-ink">
                 {tier.name}
               </h2>
-              <span className="rounded-full bg-surface-alt px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-stone-500">
+              <span className="rounded-full bg-surface-alt px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-dim">
                 {tier.tag}
               </span>
             </div>
             <p className="mt-4 text-3xl font-semibold tracking-tight text-ink">{tier.price}</p>
-            <p className="font-mono text-xs text-stone-500">{tier.note}</p>
-            <p className="mt-3 text-sm text-stone-600">{tier.blurb}</p>
+            <p className="font-mono text-xs text-dim">{tier.note}</p>
+            <p className="mt-3 text-sm text-muted">{tier.blurb}</p>
             <ul className="mt-5 flex-1 space-y-2">
               {tier.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-stone-700">
+                <li key={f} className="flex items-start gap-2 text-sm text-muted">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
                   {f}
                 </li>
@@ -107,17 +107,17 @@ export default function PricingPage() {
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[560px] text-sm">
             <thead>
-              <tr className="border-b border-stone-200 text-left">
-                <th className="py-3 pr-4 font-medium text-stone-500">Capability</th>
-                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-stone-500">Diagnose</th>
-                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-stone-500">Fix</th>
-                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-stone-500">Agency</th>
+              <tr className="border-b border-hair text-left">
+                <th className="py-3 pr-4 font-medium text-dim">Capability</th>
+                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-dim">Diagnose</th>
+                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-dim">Fix</th>
+                <th className="px-3 py-3 text-center font-mono text-xs uppercase text-dim">Agency</th>
               </tr>
             </thead>
             <tbody>
               {COMPARISON.map((row) => (
-                <tr key={row.label} className="border-b border-stone-100">
-                  <td className="py-3 pr-4 text-stone-700">{row.label}</td>
+                <tr key={row.label} className="border-b border-hair">
+                  <td className="py-3 pr-4 text-muted">{row.label}</td>
                   <Cell on={row.diagnose} />
                   <Cell on={row.fix} />
                   <Cell on={row.agency} />
@@ -126,7 +126,7 @@ export default function PricingPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 font-mono text-xs text-stone-500">
+        <p className="mt-4 font-mono text-xs text-dim">
           Fix and Agency tiers are pre-launch. Prices are planned and may change before release.
         </p>
       </section>
@@ -140,7 +140,7 @@ function Cell({ on }: { on: boolean }) {
       {on ? (
         <Check className="mx-auto h-4 w-4 text-brand-700" />
       ) : (
-        <Minus className="mx-auto h-4 w-4 text-stone-300" />
+        <Minus className="mx-auto h-4 w-4 text-dim" />
       )}
     </td>
   );

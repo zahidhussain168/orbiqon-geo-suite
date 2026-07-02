@@ -10,7 +10,7 @@ export default function NotFound() {
       <h1 className="mt-4 text-3xl font-semibold tracking-tight text-ink">
         That page is not cited here
       </h1>
-      <p className="mt-3 text-stone-600">
+      <p className="mt-3 text-muted">
         The link may be old or the page may have moved. Here is the fastest way back to something
         useful.
       </p>

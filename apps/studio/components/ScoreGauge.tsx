@@ -41,7 +41,7 @@ export function ScoreGauge({ score, size = 176 }: { score: number; size?: number
   return (
     <div className="relative grid shrink-0 place-items-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90" aria-hidden>
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="#e2e8f0" strokeWidth={stroke} fill="none" />
+        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(255,255,255,0.1)" strokeWidth={stroke} fill="none" />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -55,10 +55,10 @@ export function ScoreGauge({ score, size = 176 }: { score: number; size?: number
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-5xl font-bold tabular-nums tracking-tight text-stone-900">
+        <span className="text-5xl font-bold tabular-nums tracking-tight text-fg">
           {display}
         </span>
-        <span className="text-xs text-stone-400">/ 100</span>
+        <span className="text-xs text-dim">/ 100</span>
       </div>
     </div>
   );

@@ -28,11 +28,11 @@ export function FixCta({ scanId, brand }: { scanId: string | null; brand: string
 
   return (
     <div id="fix" className="card scroll-mt-6 border-brand-200 bg-brand-50/50 p-6">
-      <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-stone-900">
+      <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-fg">
         <IconWrench className="text-brand-700" />
         Want to change these results?
       </h2>
-      <p className="mt-1.5 max-w-xl text-sm text-stone-600">
+      <p className="mt-1.5 max-w-xl text-sm text-muted">
         We&apos;re building the fix layer: the answer blocks, comparison pages, and structured
         content that help {brand} earn citations, generated and published for you. Join the early
         list and we&apos;ll onboard you first. No promises of instant rankings; AI answers move

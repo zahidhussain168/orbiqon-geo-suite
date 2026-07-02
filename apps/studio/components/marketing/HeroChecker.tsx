@@ -48,7 +48,7 @@ export function HeroChecker() {
         Check my AI visibility
         <ArrowRight className="h-4 w-4" />
       </MagneticButton>
-      <p className="mt-2.5 text-center font-mono text-[11px] text-stone-500">
+      <p className="mt-2.5 text-center font-mono text-[11px] text-dim">
         No signup. No credit card. Results in about 60 seconds.
       </p>
     </form>

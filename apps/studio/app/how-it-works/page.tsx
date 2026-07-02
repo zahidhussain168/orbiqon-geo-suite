@@ -21,7 +21,7 @@ export default function HowItWorksPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Diagnose, fix, manage
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-stone-600">
+        <p className="mt-4 text-lg leading-relaxed text-muted">
           Most tools stop at the dashboard. Our workflow is a loop: find where AI ignores you, do
           the work to fix it, then run it at scale. Each step feeds the next.
         </p>
@@ -40,8 +40,8 @@ export default function HowItWorksPage() {
                 <p className="mt-4 font-mono text-sm font-semibold uppercase tracking-wide text-ink">
                   {layer.label}
                 </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{layer.blurb}</p>
-                <ul className="mt-4 space-y-1.5 border-t border-stone-100 pt-4 text-sm text-stone-700">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{layer.blurb}</p>
+                <ul className="mt-4 space-y-1.5 border-t border-hair pt-4 text-sm text-muted">
                   {toolsByLayer(layer.id).map((t) => (
                     <li key={t.slug}>
                       <Link href={t.href} className="transition-colors hover:text-brand-700">
@@ -54,7 +54,7 @@ export default function HowItWorksPage() {
               </div>
               {i < LAYERS.length - 1 && (
                 <div className="hidden items-center justify-center sm:flex" aria-hidden>
-                  <ArrowRight className="h-5 w-5 text-stone-300" />
+                  <ArrowRight className="h-5 w-5 text-dim" />
                 </div>
               )}
             </div>
@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
       {/* Honesty */}
       <section className="card p-6 sm:p-8">
         <h2 className="text-xl font-semibold tracking-tight text-ink">Why we report rates</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-stone-600">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
           Ask an AI the same question twice and you can get different brands. So we sample every
           prompt several times per engine and report how often you are cited. A rate you can trust
           beats a yes or no you cannot. We never claim schema or an llms.txt file alone will get you

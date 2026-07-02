@@ -34,8 +34,8 @@ export default async function ResultsPage({ params }: Props) {
   if (!result) {
     return (
       <main className="mx-auto max-w-lg space-y-4 py-12 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">Report not found</h1>
-        <p className="text-stone-600">
+        <h1 className="text-2xl font-bold tracking-tight text-fg">Report not found</h1>
+        <p className="text-muted">
           This scan isn&apos;t available, it may have expired, or persistence isn&apos;t configured
           on this deployment.
         </p>
