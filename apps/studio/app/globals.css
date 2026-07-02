@@ -163,6 +163,107 @@
   transform: translate(var(--dx, 0), var(--dy, 0));
 }
 
+/* ── Rich visual layer: orbs, marquee, glass, float, gradient text ─────────── */
+@layer components {
+  /* Blurred teal glow orbs (compositor-friendly slow drift). */
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    opacity: 0.55;
+    pointer-events: none;
+    will-change: transform;
+    z-index: 0;
+  }
+  .orb-teal {
+    background: radial-gradient(circle, rgba(13, 148, 136, 0.55), transparent 70%);
+    animation: orb-drift 22s ease-in-out infinite alternate;
+  }
+  .orb-cyan {
+    background: radial-gradient(circle, rgba(8, 145, 178, 0.4), transparent 70%);
+    animation: orb-drift 28s ease-in-out infinite alternate-reverse;
+  }
+
+  /* Glassy surface for the product mockup. */
+  .glass {
+    background: rgba(255, 255, 255, 0.62);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: var(--shadow-lift, 0 24px 60px -24px rgb(20 17 15 / 0.28));
+  }
+
+  .float {
+    animation: float 7s ease-in-out infinite;
+  }
+
+  /* Flowing teal gradient text for one hero keyword. */
+  .gradient-text {
+    background: linear-gradient(100deg, #0f766e, #0891b2, #0d9488, #0f766e);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-flow 8s ease-in-out infinite;
+  }
+
+  /* Marquee track: duplicate children, translate half. */
+  .marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  /* Duotone teal tint over atmospheric photos. */
+  .img-tint::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(15, 118, 110, 0.42), rgba(20, 17, 15, 0.28));
+    mix-blend-mode: multiply;
+  }
+}
+
+@keyframes orb-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(24px, -18px, 0) scale(1.12);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes gradient-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

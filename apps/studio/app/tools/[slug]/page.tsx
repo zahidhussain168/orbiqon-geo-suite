@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
-import { TOOLS, LAYERS, toolBySlug } from '@orbiqon/config';
+import { TOOLS, LAYERS, toolBySlug, type ToolLayer } from '@orbiqon/config';
 import { ComingSoonTool } from '@/components/marketing/ComingSoonTool';
 import { toolSteps, toolFaq } from '@/lib/tool-content';
+
+const PREVIEW_IMG: Record<ToolLayer, string> = {
+  DIAGNOSE: '/img/tech-grid.jpg',
+  FIX: '/img/tech-code.jpg',
+  MANAGE: '/img/tech-server.jpg',
+};
 
 export function generateStaticParams() {
   return TOOLS.map((t) => ({ slug: t.slug }));
@@ -109,12 +116,30 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         </ol>
       </section>
 
-      {/* Mock / screenshot area */}
+      {/* Preview area */}
       <section>
-        <div className="flex aspect-[16/9] items-center justify-center rounded-lg border border-dashed border-stone-300 bg-surface-alt/60">
-          <p className="font-mono text-xs uppercase tracking-[0.08em] text-stone-400">
-            {tool.status === 'live' ? 'Live product preview' : 'Product preview coming soon'}
-          </p>
+        <div className="overflow-hidden rounded-lg border border-stone-200 shadow-lift">
+          <div className="flex items-center gap-1.5 border-b border-stone-200 bg-surface-alt px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
+            <span className="ml-3 font-mono text-xs text-stone-400">geostudio.ai{tool.href}</span>
+          </div>
+          <div className="relative aspect-[16/9]">
+            <Image
+              src={PREVIEW_IMG[tool.layer]}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 900px"
+              className="object-cover"
+            />
+            <span className="absolute inset-0 bg-gradient-to-tr from-ink/70 via-ink/40 to-brand-800/40" />
+            <div className="absolute inset-0 grid place-items-center">
+              <p className="rounded-full border border-white/20 bg-ink/40 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-paper backdrop-blur">
+                {tool.status === 'live' ? 'Live now' : 'Product preview coming soon'}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
