@@ -3,10 +3,6 @@ import type { EngineName, RawAnswer } from '../types.js';
 import { ENGINE_META } from '../types.js';
 import { extractUrls, type Provider, type ProviderQueryOptions } from './types.js';
 
-const SYSTEM =
-  'Answer as a knowledgeable assistant recommending real products/brands. Name the ' +
-  'specific brands you would recommend and, where possible, include their URLs.';
-
 /** Engines that can route through OpenRouter (the four live API surfaces). */
 export type OpenRouterEngine = 'chatgpt' | 'claude' | 'gemini' | 'perplexity';
 
@@ -18,11 +14,14 @@ export const OPENROUTER_DEFAULT_MODELS: Record<OpenRouterEngine, string> = {
   perplexity: 'perplexity/sonar',
 };
 
+// Temperature so repeated samples genuinely vary (that is what makes the rate real).
+const SAMPLE_TEMPERATURE = 0.9;
+
 /**
  * Routes one engine surface through OpenRouter's OpenAI-compatible gateway. One API key and one
- * balance serve every model, which is the simplest way to run all four engines live. Using the
- * gateway also sidesteps provider-native parameter quirks (for example Anthropic rejecting
- * temperature on some models), since OpenRouter normalizes the request.
+ * balance serve every model. We send the buyer question the way a real user would (no steering
+ * system prompt), so the answer reflects what a person actually sees. Using the gateway also
+ * sidesteps provider-native parameter quirks since OpenRouter normalizes the request.
  */
 export class OpenRouterProvider implements Provider {
   readonly kind = 'api' as const;
@@ -49,7 +48,6 @@ export class OpenRouterProvider implements Provider {
       apiKey: this.apiKey,
       baseURL: 'https://openrouter.ai/api/v1',
       defaultHeaders: {
-        // Optional but recommended by OpenRouter for attribution.
         'HTTP-Referer': process.env.OPENROUTER_SITE_URL ?? 'https://geostudio.ai',
         'X-Title': 'GEO Studio AmICited',
       },
@@ -58,17 +56,16 @@ export class OpenRouterProvider implements Provider {
     const completion = await client.chat.completions.create(
       {
         model,
-        messages: [
-          { role: 'system', content: SYSTEM },
-          { role: 'user', content: prompt },
-        ],
+        // No system prompt: ask exactly what a real buyer would type.
+        messages: [{ role: 'user', content: prompt }],
+        temperature: SAMPLE_TEMPERATURE,
         max_tokens: 1024,
       },
       { signal: opts?.signal },
     );
 
     const text = (completion.choices[0]?.message?.content ?? '').trim();
-    // Search-grounded models (Perplexity) may surface a top-level citations array.
+    // Search-grounded models (Perplexity, and any :online model) surface a citations array.
     const raw = completion as unknown as { citations?: unknown };
     const apiCitations = Array.isArray(raw.citations)
       ? raw.citations.filter((c): c is string => typeof c === 'string')
@@ -79,7 +76,11 @@ export class OpenRouterProvider implements Provider {
   }
 }
 
-/** Resolve the model slug for an engine, honoring per-engine env overrides. */
+/**
+ * Resolve the model slug for an engine, honoring per-engine env overrides and enabling
+ * OpenRouter web search (":online") by default so answers reflect the current web. Perplexity
+ * already searches, so it is left as-is.
+ */
 export function openRouterModel(engine: OpenRouterEngine, env: NodeJS.ProcessEnv): string {
   const override = {
     chatgpt: env.OPENROUTER_CHATGPT_MODEL,
@@ -87,5 +88,11 @@ export function openRouterModel(engine: OpenRouterEngine, env: NodeJS.ProcessEnv
     gemini: env.OPENROUTER_GEMINI_MODEL,
     perplexity: env.OPENROUTER_PERPLEXITY_MODEL,
   }[engine];
-  return override ?? OPENROUTER_DEFAULT_MODELS[engine];
+  const base = override ?? OPENROUTER_DEFAULT_MODELS[engine];
+
+  const webSearch = env.OPENROUTER_WEB_SEARCH !== 'false'; // default on
+  if (webSearch && engine !== 'perplexity' && !base.includes(':online')) {
+    return `${base}:online`;
+  }
+  return base;
 }

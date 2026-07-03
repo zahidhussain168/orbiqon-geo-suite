@@ -63,7 +63,7 @@ export function ScanningView({ brand, prompts }: { brand: string; prompts: strin
       <ul className="card mt-6 divide-y divide-hair p-2">
         {LIVE_ENGINES.map((engine, i) => {
           const at = Math.min(counts[i] ?? 0, totalPerEngine - 1);
-          const prompt = prompts[at] ?? prompts[0] ?? '';
+          const prompt = prompts[at] ?? prompts[0] ?? 'your buyer questions';
           return (
             <li key={engine.id} className="flex items-center gap-3 px-3 py-3">
               <span

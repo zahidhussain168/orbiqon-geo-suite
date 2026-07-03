@@ -13,7 +13,7 @@ import {
   type RunResult,
 } from '@orbiqon/query-engine';
 import { computeVisibilityScore } from './scoring';
-import { suggestPrompts } from './prompts';
+import { generatePrompts } from './prompt-gen';
 import type {
   AnswerExample,
   CompetitorTally,
@@ -37,7 +37,7 @@ export async function runScan(request: ScanRequest): Promise<ScanResult> {
   const rawPrompts =
     request.prompts && request.prompts.length > 0
       ? request.prompts
-      : suggestPrompts(category, brand);
+      : await generatePrompts({ brand, website, category });
 
   const limits = limitsFromEnv();
   const clamped = clampScanInputs(rawPrompts, samplesFromEnv(), limits);

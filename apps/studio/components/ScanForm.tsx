@@ -8,7 +8,7 @@ import { ResultsView } from './ResultsView';
 import { ScanningView } from './ScanningView';
 import { EmailCapture } from './EmailCapture';
 import { MagneticButton, Reveal } from './motion';
-import { IconArrowRight, IconPlus, IconSparkles, IconX } from './icons';
+import { IconArrowRight, IconPlus, IconSparkles, IconSpinner, IconX } from './icons';
 
 const HERO_WORDS = ['Is', 'AI', 'recommending', 'you,'];
 const HERO_ACCENT_WORDS = ['or', 'your', 'competitors?'];
@@ -33,6 +33,7 @@ export function ScanForm({
   const [phase, setPhase] = useState<Phase>('idle');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScanResult | null>(null);
+  const [suggesting, setSuggesting] = useState(false);
 
   function applyPreset(p: Preset) {
     setBrand(p.brand);
@@ -51,13 +52,34 @@ export function ScanForm({
     setDraft('');
   }
 
-  function suggestForMe() {
-    const fresh = suggestPrompts(category, brand).filter((s) => !prompts.includes(s));
-    setPrompts((prev) => [...prev, ...fresh].slice(0, MAX_PROMPTS));
+  async function suggestForMe() {
+    if (!brand.trim() || suggesting) return;
+    setSuggesting(true);
+    try {
+      const res = await fetch('/api/suggest-prompts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brand, website: website || undefined, category: category || undefined }),
+      });
+      const data = await res.json();
+      const fresh: string[] = Array.isArray(data.prompts)
+        ? data.prompts.filter((s: string) => !prompts.includes(s))
+        : [];
+      if (fresh.length) setPrompts((prev) => [...prev, ...fresh].slice(0, MAX_PROMPTS));
+      else {
+        const stat = suggestPrompts(category, brand).filter((s) => !prompts.includes(s));
+        setPrompts((prev) => [...prev, ...stat].slice(0, MAX_PROMPTS));
+      }
+    } catch {
+      const stat = suggestPrompts(category, brand).filter((s) => !prompts.includes(s));
+      setPrompts((prev) => [...prev, ...stat].slice(0, MAX_PROMPTS));
+    } finally {
+      setSuggesting(false);
+    }
   }
 
   async function run() {
-    if (!brand.trim() || !prompts.length) return;
+    if (!brand.trim()) return;
     setError(null);
     setResult(null);
     setPhase('scanning');
@@ -70,7 +92,8 @@ export function ScanForm({
           brand,
           website: website || undefined,
           category: category || undefined,
-          prompts,
+          // Empty means: let the server generate a buyer-prompt grid for this brand.
+          prompts: prompts.length ? prompts : undefined,
         }),
       });
       const data = await res.json();
@@ -236,19 +259,24 @@ export function ScanForm({
           </div>
 
           {prompts.length < MAX_PROMPTS && (
-            <button type="button" onClick={suggestForMe} className="btn-secondary mt-2.5">
-              <IconSparkles className="h-4 w-4 text-brand-600" />
-              Suggest prompts for me
+            <button
+              type="button"
+              onClick={suggestForMe}
+              disabled={!brand.trim() || suggesting}
+              className="btn-secondary mt-2.5"
+            >
+              {suggesting ? (
+                <IconSpinner className="h-4 w-4" />
+              ) : (
+                <IconSparkles className="h-4 w-4 text-brand-600" />
+              )}
+              {suggesting ? 'Writing buyer prompts…' : 'Suggest prompts for me'}
             </button>
           )}
         </Field>
 
-        <MagneticButton
-          type="submit"
-          disabled={!brand.trim() || !prompts.length}
-          className="btn-primary w-full"
-        >
-          Check my AI visibility
+        <MagneticButton type="submit" disabled={!brand.trim()} className="btn-primary w-full">
+          {prompts.length ? 'Check my AI visibility' : 'Generate prompts and check'}
           <IconArrowRight className="h-4 w-4" />
         </MagneticButton>
 

@@ -45,8 +45,9 @@ export async function sampleEngine(
   let cappedCalls = 0;
 
   for (let i = 0; i < opts.samples; i++) {
-    // Cache first — a cache hit is free and bypasses the budget entirely.
-    const key = cacheKey(provider.name, model, prompt);
+    // Cache first, but keyed by sample index so the N samples are independent calls (real
+    // variance), while a repeat of the exact same scan today reuses those varied answers.
+    const key = cacheKey(provider.name, model, prompt, undefined, i);
     const cached = provider.kind === 'api' ? await opts.cache?.get(key) : undefined;
 
     let answer: RawAnswer | undefined = cached ?? undefined;
