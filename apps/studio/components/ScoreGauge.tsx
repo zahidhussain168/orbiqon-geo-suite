@@ -66,7 +66,7 @@ export function ScoreGauge({ score, size = 176 }: { score: number; size?: number
 
 /** Verdict labels are factual, not alarmist. */
 export function scoreVerdict(score: number): { color: string; verdict: string } {
-  if (score >= 66) return { color: '#059669', verdict: 'Well cited' };
-  if (score >= 33) return { color: '#d97706', verdict: 'Partially visible' };
-  return { color: '#e11d48', verdict: 'Mostly invisible to AI' };
+  if (score >= 66) return { color: '#3FB950', verdict: 'Well cited' };
+  if (score >= 33) return { color: '#E2A336', verdict: 'Partially visible' };
+  return { color: '#EB5757', verdict: 'Mostly invisible to AI' };
 }

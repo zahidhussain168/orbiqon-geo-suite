@@ -35,7 +35,7 @@ export function DashboardMockup() {
             cx="44"
             cy="44"
             r={r}
-            stroke="#FBBF24"
+            stroke="#E2A336"
             strokeWidth="9"
             fill="none"
             strokeLinecap="round"
@@ -61,7 +61,7 @@ export function DashboardMockup() {
                   ['--sov' as string]: `${Math.max(e.pct, e.cited ? 6 : 0)}%`,
                   width: `${Math.max(e.pct, e.cited ? 6 : 0)}%`,
                   animationDelay: `${i * 80}ms`,
-                  background: e.cited ? '#34D399' : '#FB7185',
+                  background: e.cited ? '#3FB950' : '#EB5757',
                 }}
               />
             </div>

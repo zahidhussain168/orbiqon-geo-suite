@@ -1,61 +1,62 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * GEO Studio, dark editorial-tech. Near-black canvas, hairline borders, one electric teal
- * accent (bright on dark; buttons use dark text on the bright accent). Verdict colors are
- * reserved for the score only. Semantic token names so the theme is cohesive.
+ * Linear design system (adopted from getdesign.md/linear.app).
+ * Indigo #5e6ad2 accent, layered near-black surfaces, hairline borders, Inter + JetBrains Mono,
+ * 12px cards / 8px controls, medium (500) UI weight. Verdict colors are the score only.
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx,mdx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Surfaces (kept legacy names so existing bg-paper/bg-surface map to dark)
-        canvas: '#09090B',
-        paper: '#09090B',
-        surface: '#141417',
-        'surface-alt': '#19191D',
-        elevated: '#1F1F24',
-        ink: '#FAFAFA', // legacy alias: now the foreground
+        // Layered near-black surfaces (Linear)
+        canvas: '#08090A',
+        paper: '#08090A',
+        surface: '#141516',
+        'surface-alt': '#18191A',
+        elevated: '#1C1D1F',
+        ink: '#F7F8F8', // legacy alias: foreground
         // Foreground scale
-        fg: '#FAFAFA',
-        muted: '#A1A1AA',
-        dim: '#71717A',
+        fg: '#F7F8F8',
+        high: '#D0D6E0',
+        muted: '#8A8F98',
+        dim: '#62666D',
         // Hairlines
-        hair: '#26262B',
-        'hair-strong': '#3A3A42',
-        // One electric accent (teal), tuned for dark
+        hair: '#23252A',
+        'hair-strong': '#34343A',
+        // Accent: Linear indigo
         brand: {
-          50: '#04211E', // dark tint fill
-          100: '#0A3D37',
-          200: '#115E56', // subtle borders
-          600: '#5EEAD4', // large graphics / hover-light
-          700: '#2DD4BF', // workhorse: links, accents, button fill
-          800: '#14B8A6', // pressed
-          DEFAULT: '#2DD4BF',
+          50: '#1A1B2E', // dark tint fill
+          100: '#23264A',
+          200: '#343A6B', // subtle borders
+          600: '#828FFF', // light accent / hover-bright
+          700: '#5E6AD2', // workhorse: buttons, links, accents
+          800: '#4C56B8', // pressed
+          DEFAULT: '#5E6AD2',
         },
-        accent: '#2DD4BF',
+        accent: '#5E6AD2',
         verdict: {
-          good: '#34D399',
-          'good-graphic': '#34D399',
-          mid: '#FBBF24',
-          'mid-graphic': '#FBBF24',
-          low: '#FB7185',
-          'low-graphic': '#FB7185',
+          good: '#27A644',
+          'good-graphic': '#3FB950',
+          mid: '#E2A336',
+          'mid-graphic': '#E2A336',
+          low: '#EB5757',
+          'low-graphic': '#EB5757',
         },
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       borderRadius: {
         sm: '6px',
-        DEFAULT: '10px',
-        lg: '14px',
+        DEFAULT: '8px',
+        lg: '12px',
       },
       boxShadow: {
-        card: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 1px 2px 0 rgb(0 0 0 / 0.4)',
-        lift: '0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 20px 50px -24px rgb(0 0 0 / 0.7)',
+        card: '0 1px 0 0 rgb(255 255 255 / 0.03) inset, 0 1px 2px 0 rgb(0 0 0 / 0.4)',
+        lift: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 16px 40px -20px rgb(0 0 0 / 0.7)',
       },
       keyframes: {
         'fade-up': {

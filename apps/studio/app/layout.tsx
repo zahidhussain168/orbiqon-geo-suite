@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { brand } from '@orbiqon/config';
 import { Header } from '@/components/shell/Header';
 import { Footer } from '@/components/shell/Footer';
 import './globals.css';
+
+const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 const TITLE = `${brand.brandName}: are you cited by ChatGPT, Claude, Perplexity and Gemini?`;
 
@@ -39,7 +41,7 @@ const ORG_JSON_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <script
           type="application/ld+json"

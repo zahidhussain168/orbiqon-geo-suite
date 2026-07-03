@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Dark editorial-tech tokens ─────────────────────────────────────────────── */
+/* ── Linear design tokens (via getdesign.md/linear.app) ─────────────────────── */
 :root {
   color-scheme: dark;
-  --canvas: #09090b;
-  --surface: #141417;
-  --elevated: #1f1f24;
-  --hair: #26262b;
-  --fg: #fafafa;
-  --muted: #a1a1aa;
-  --dim: #71717a;
-  --accent: #2dd4bf;
-  --accent-rgb: 45, 212, 191;
+  --canvas: #08090a;
+  --surface: #141516;
+  --elevated: #1c1d1f;
+  --hair: #23252a;
+  --fg: #f7f8f8;
+  --muted: #8a8f98;
+  --dim: #62666d;
+  --accent: #5e6ad2;
+  --accent-rgb: 94, 106, 210;
 }
 
 @layer base {
@@ -69,11 +69,14 @@
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.14em] text-dim;
   }
-  /* Bright accent button with dark label: the modern dark-site move. */
+  /* Linear-style primary: indigo fill, white label, subtle top highlight. */
   .btn-primary {
-    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded bg-brand-700 px-4 py-2.5
-      font-semibold text-canvas transition-colors hover:bg-brand-600 active:bg-brand-800
+    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded bg-brand-700 px-4 py-2
+      text-sm font-medium text-white transition-colors hover:bg-brand-600 active:bg-brand-800
       disabled:pointer-events-none disabled:opacity-40;
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.12) inset,
+      0 1px 2px 0 rgb(0 0 0 / 0.4);
   }
   .btn-secondary {
     @apply inline-flex min-h-[42px] items-center justify-center gap-1.5 rounded border border-hair
@@ -131,7 +134,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(100deg, #2dd4bf, #67e8f9, #2dd4bf);
+    background: linear-gradient(100deg, #5e6ad2, #828fff, #5e6ad2);
     background-size: 220% 100%;
     -webkit-background-clip: text;
     background-clip: text;

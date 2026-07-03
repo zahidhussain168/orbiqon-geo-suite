@@ -34,7 +34,7 @@ export function SovPeek() {
                   ['--sov' as string]: `${r.pct}%`,
                   width: `${r.pct}%`,
                   animationDelay: `${i * 90}ms`,
-                  background: r.you ? '#2DD4BF' : '#3A3A42',
+                  background: r.you ? '#5E6AD2' : '#3A3A42',
                 }}
               />
             </div>
