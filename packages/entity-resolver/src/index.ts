@@ -7,6 +7,7 @@
  */
 export { EntityResolver } from './resolver.js';
 export { extractBrands, extractUrls, type ExtractedBrand } from './extract.js';
+export { canonicalKey, foldFamilies } from './canonical.js';
 export {
   normalize,
   domainRoot,

@@ -1,5 +1,5 @@
 import { getPrisma } from '@orbiqon/db';
-import { EntityResolver } from '@orbiqon/entity-resolver';
+import { EntityResolver, canonicalKey, foldFamilies } from '@orbiqon/entity-resolver';
 import {
   clampScanInputs,
   CostGuard,
@@ -204,20 +204,53 @@ function trimText(text: string, max = 260): string {
 }
 
 function tallyCompetitors(runs: RunResult[]): CompetitorTally[] {
-  const counts = new Map<string, number>();
+  // Group by canonical key so a product, its domain, and its qualified name count once.
+  const byKey = new Map<string, { display: string; count: number }>();
   for (const run of runs) {
     for (const eng of run.engines) {
       for (const s of eng.samples) {
         for (const c of s.competitors) {
-          counts.set(c, (counts.get(c) ?? 0) + 1);
+          const key = canonicalKey(c);
+          if (!key) continue;
+          const cur = byKey.get(key);
+          if (cur) {
+            cur.count += 1;
+            if (preferCompetitorDisplay(c, cur.display)) cur.display = c;
+          } else {
+            byKey.set(key, { display: c, count: 1 });
+          }
         }
       }
     }
   }
-  return Array.from(counts.entries())
-    .map(([name, count]) => ({ name, count }))
+
+  // Fold qualified names into their standalone root ("Microsoft OneNote" -> "OneNote").
+  const fold = foldFamilies(byKey.keys());
+  const merged = new Map<string, { display: string; count: number }>();
+  for (const [key, v] of byKey) {
+    const canon = fold.get(key) ?? key;
+    const cur = merged.get(canon);
+    if (cur) {
+      cur.count += v.count;
+      if (preferCompetitorDisplay(v.display, cur.display)) cur.display = v.display;
+    } else {
+      merged.set(canon, { ...v });
+    }
+  }
+
+  return Array.from(merged.values())
+    .map((v) => ({ name: v.display, count: v.count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, MAX_COMPETITORS);
+}
+
+/** Prefer a proper, capitalized, non-domain competitor name over a bare domain or longer form. */
+function preferCompetitorDisplay(candidate: string, current: string): boolean {
+  const cDomain = /\.[a-z]{2,}$/i.test(candidate);
+  const curDomain = /\.[a-z]{2,}$/i.test(current);
+  if (curDomain && !cDomain) return true;
+  if (cDomain && !curDomain) return false;
+  return candidate.length < current.length;
 }
 
 // ── persistence (graceful) ───────────────────────────────────────────────────
