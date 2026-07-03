@@ -6,6 +6,7 @@ import { GoogleAiOverviewsProvider } from './google-ai-overviews.js';
 import { MockProvider, type MockConfig } from './mock.js';
 import { OpenAiProvider } from './openai.js';
 import { PerplexityProvider } from './perplexity.js';
+import { OpenRouterProvider, openRouterModel, type OpenRouterEngine } from './openrouter.js';
 import type { Provider } from './types.js';
 
 export * from './types.js';
@@ -16,6 +17,12 @@ export { PerplexityProvider } from './perplexity.js';
 export { GoogleAiOverviewsProvider } from './google-ai-overviews.js';
 export { ChatGptWebProvider } from './chatgpt-web.js';
 export { MockProvider, type MockConfig } from './mock.js';
+export {
+  OpenRouterProvider,
+  openRouterModel,
+  OPENROUTER_DEFAULT_MODELS,
+  type OpenRouterEngine,
+} from './openrouter.js';
 
 /** The four API engines we implement live, plus the two stubbed scrape surfaces. */
 export const DEFAULT_ENGINES: EngineName[] = [
@@ -48,32 +55,49 @@ export function createProviders(options: CreateProvidersOptions = {}): Provider[
   const engines = options.engines ?? DEFAULT_ENGINES;
   const forceMock = options.forceMock ?? env.MOCK_LLM === 'true';
   const mockConfig = options.mock ?? {};
+  const orKey = env.OPENROUTER_API_KEY;
+
+  // When an OpenRouter key is set, route the live engines through it (one key, one balance).
+  const viaOpenRouter = (engine: OpenRouterEngine): Provider | null =>
+    !forceMock && orKey ? new OpenRouterProvider(engine, orKey, openRouterModel(engine, env)) : null;
 
   const build = (engine: EngineName): Provider => {
     switch (engine) {
       case 'chatgpt': {
         const key = env.OPENAI_API_KEY;
-        return forceMock || !key
-          ? new MockProvider('chatgpt', mockConfig)
-          : new OpenAiProvider(key, env.OPENAI_MODEL);
+        return (
+          viaOpenRouter('chatgpt') ??
+          (forceMock || !key
+            ? new MockProvider('chatgpt', mockConfig)
+            : new OpenAiProvider(key, env.OPENAI_MODEL))
+        );
       }
       case 'claude': {
         const key = env.ANTHROPIC_API_KEY;
-        return forceMock || !key
-          ? new MockProvider('claude', mockConfig)
-          : new AnthropicProvider(key, env.ANTHROPIC_MODEL);
+        return (
+          viaOpenRouter('claude') ??
+          (forceMock || !key
+            ? new MockProvider('claude', mockConfig)
+            : new AnthropicProvider(key, env.ANTHROPIC_MODEL))
+        );
       }
       case 'gemini': {
         const key = env.GEMINI_API_KEY;
-        return forceMock || !key
-          ? new MockProvider('gemini', mockConfig)
-          : new GeminiProvider(key, env.GEMINI_MODEL);
+        return (
+          viaOpenRouter('gemini') ??
+          (forceMock || !key
+            ? new MockProvider('gemini', mockConfig)
+            : new GeminiProvider(key, env.GEMINI_MODEL))
+        );
       }
       case 'perplexity': {
         const key = env.PERPLEXITY_API_KEY;
-        return forceMock || !key
-          ? new MockProvider('perplexity', mockConfig)
-          : new PerplexityProvider(key, env.PERPLEXITY_MODEL);
+        return (
+          viaOpenRouter('perplexity') ??
+          (forceMock || !key
+            ? new MockProvider('perplexity', mockConfig)
+            : new PerplexityProvider(key, env.PERPLEXITY_MODEL))
+        );
       }
       case 'google-ai-overviews':
         return new GoogleAiOverviewsProvider();
