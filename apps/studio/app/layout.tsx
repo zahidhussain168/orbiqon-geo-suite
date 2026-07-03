@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { brand } from '@orbiqon/config';
 import { Header } from '@/components/shell/Header';
 import { Footer } from '@/components/shell/Footer';
 import './globals.css';
 
-const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
+const sans = GeistSans;
+const mono = GeistMono;
 
 const TITLE = `${brand.brandName}: are you cited by ChatGPT, Claude, Perplexity and Gemini?`;
 

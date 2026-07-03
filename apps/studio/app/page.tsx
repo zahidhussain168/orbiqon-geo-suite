@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight, Gauge, Wrench, LayoutDashboard, Info, Sparkles } from 'lucide-react';
 import { TOOLS, LAYERS } from '@orbiqon/config';
 import { HeroChecker } from '@/components/marketing/HeroChecker';
+import { Globe3D } from '@/components/marketing/Globe3D';
 import { DashboardMockup } from '@/components/marketing/DashboardMockup';
 import { EngineMarquee } from '@/components/marketing/EngineMarquee';
 import { StatCounter } from '@/components/marketing/StatCounter';
@@ -33,11 +34,10 @@ export default function HomePage() {
             </div>
           </div>
           <Reveal className="relative">
-            <span className="glow -right-8 top-6 h-72 w-72" />
-            <div className="dotgrid rounded-lg border border-hair p-4 sm:p-6">
-              <div className="float">
-                <DashboardMockup />
-              </div>
+            <div className="relative mx-auto aspect-square w-full max-w-[540px]">
+              <span className="glow-warm absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2" />
+              <span className="glow absolute -right-6 top-4 h-56 w-56 opacity-40" />
+              <Globe3D className="absolute inset-0" />
             </div>
           </Reveal>
         </div>

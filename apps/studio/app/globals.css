@@ -2,18 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Linear design tokens (via getdesign.md/linear.app) ─────────────────────── */
+/* ── Aurora design tokens ───────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
-  --canvas: #08090a;
-  --surface: #141516;
-  --elevated: #1c1d1f;
-  --hair: #23252a;
-  --fg: #f7f8f8;
-  --muted: #8a8f98;
-  --dim: #62666d;
-  --accent: #5e6ad2;
-  --accent-rgb: 94, 106, 210;
+  --canvas: #0a0a12;
+  --surface: #13131f;
+  --elevated: #1c1c30;
+  --hair: #24243a;
+  --fg: #f4f4ff;
+  --muted: #a7a7cf;
+  --dim: #74749a;
+  --accent: #7c5cff;
+  --accent-rgb: 124, 92, 255;
+  --accent2: #22d3ee;
+  --accent2-rgb: 34, 211, 238;
+  /* Map Geist's own variables onto the app's font contract. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', monospace;
 }
 
 @layer base {
@@ -56,7 +61,54 @@
 
 @layer components {
   .card {
-    @apply rounded-lg border border-hair bg-surface shadow-card;
+    @apply relative rounded-lg border border-hair bg-surface shadow-card;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  /* A hairline top sheen gives every panel a lit-from-above, dimensional edge. */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.14) 22%,
+      rgba(255, 255, 255, 0.14) 78%,
+      transparent
+    );
+    pointer-events: none;
+  }
+  /* Interactive cards: a pointer-following glow and a lift on hover. */
+  .spotlight {
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+  .spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(var(--accent-rgb), 0.16),
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .spotlight:hover {
+    transform: translateY(-4px);
+    border-color: theme('colors.hair-strong');
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 24px 60px -28px rgb(0 0 0 / 0.85);
+  }
+  .spotlight:hover::after {
+    opacity: 1;
   }
   .field {
     @apply w-full rounded border border-hair bg-elevated px-3.5 py-2.5 text-[16px] text-fg
@@ -69,14 +121,24 @@
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.14em] text-dim;
   }
-  /* Linear-style primary: indigo fill, white label, subtle top highlight. */
+  /* Aurora primary: violet→indigo gradient fill, white label, soft violet glow. */
   .btn-primary {
-    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded bg-brand-700 px-4 py-2
-      text-sm font-medium text-white transition-colors hover:bg-brand-600 active:bg-brand-800
+    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded px-4 py-2
+      text-sm font-medium text-white transition-all
       disabled:pointer-events-none disabled:opacity-40;
+    background-image: linear-gradient(180deg, #8b6bff, #6d47f5);
     box-shadow:
-      0 1px 0 0 rgb(255 255 255 / 0.12) inset,
-      0 1px 2px 0 rgb(0 0 0 / 0.4);
+      0 1px 0 0 rgb(255 255 255 / 0.18) inset,
+      0 6px 20px -8px rgb(124 92 255 / 0.7);
+  }
+  .btn-primary:hover {
+    background-image: linear-gradient(180deg, #9d80ff, #7c5cff);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.22) inset,
+      0 8px 26px -8px rgb(124 92 255 / 0.85);
+  }
+  .btn-primary:active {
+    background-image: linear-gradient(180deg, #7c5cff, #5b34d6);
   }
   .btn-secondary {
     @apply inline-flex min-h-[42px] items-center justify-center gap-1.5 rounded border border-hair
@@ -87,32 +149,55 @@
     @apply font-medium text-brand-700 underline decoration-brand-700/30 underline-offset-2 hover:decoration-brand-700;
   }
 
-  /* Dark hero backdrop: a single soft teal glow fading down, plus a faint dot grid. */
+  /* Aurora hero backdrop: twin violet + cyan glows fading down, over a faint dot grid. */
   .hero-backdrop {
     position: absolute;
     inset: -20% -20% auto -20%;
-    height: 520px;
+    height: 560px;
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(42% 60% at 50% -10%, rgba(var(--accent-rgb), 0.16), transparent 68%),
+      radial-gradient(46% 60% at 22% -12%, rgba(var(--accent-rgb), 0.32), transparent 62%),
+      radial-gradient(42% 58% at 84% -6%, rgba(var(--accent2-rgb), 0.2), transparent 60%),
       radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size:
       100% 100%,
+      100% 100%,
       26px 26px;
-    -webkit-mask-image: radial-gradient(60% 100% at 50% 0%, #000 28%, transparent 76%);
-    mask-image: radial-gradient(60% 100% at 50% 0%, #000 28%, transparent 76%);
+    -webkit-mask-image: radial-gradient(72% 100% at 50% 0%, #000 26%, transparent 80%);
+    mask-image: radial-gradient(72% 100% at 50% 0%, #000 26%, transparent 80%);
   }
 
-  /* One restrained hero glow (no orb-soup). */
+  /* Warm amber glow: sits behind the 3D globe for the Myna-style hero focal point. */
+  .glow-warm {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      circle,
+      rgba(255, 138, 61, 0.62),
+      rgba(255, 138, 61, 0.14) 46%,
+      transparent 72%
+    );
+  }
+
+  /* Aurora glow: a violet→cyan orb behind hero focal points. */
   .glow {
     position: absolute;
     border-radius: 9999px;
     filter: blur(90px);
-    opacity: 0.4;
+    opacity: 0.5;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.6), transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(var(--accent-rgb), 0.7),
+      rgba(var(--accent2-rgb), 0.35) 45%,
+      transparent 72%
+    );
   }
 
   /* Dark glass for the product mockup. */
@@ -134,7 +219,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(100deg, #5e6ad2, #828fff, #5e6ad2);
+    background: linear-gradient(100deg, #a78bfa, #22d3ee, #a78bfa);
     background-size: 220% 100%;
     -webkit-background-clip: text;
     background-clip: text;

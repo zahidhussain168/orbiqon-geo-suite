@@ -1,48 +1,51 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Linear design system (adopted from getdesign.md/linear.app).
- * Indigo #5e6ad2 accent, layered near-black surfaces, hairline borders, Inter + JetBrains Mono,
- * 12px cards / 8px controls, medium (500) UI weight. Verdict colors are the score only.
+ * Aurora design system.
+ * Dark glass over a violet-tinted near-black canvas, a violet→cyan accent that glows,
+ * gradient headlines and buttons, hairline borders, Geist + Geist Mono. Rich and alive,
+ * not flat. Verdict colors are the score only.
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx,mdx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Layered near-black surfaces (Linear)
-        canvas: '#08090A',
-        paper: '#08090A',
-        surface: '#141516',
-        'surface-alt': '#18191A',
-        elevated: '#1C1D1F',
-        ink: '#F7F8F8', // legacy alias: foreground
+        // Violet-tinted near-black surfaces
+        canvas: '#0A0A12',
+        paper: '#0A0A12',
+        surface: '#13131F',
+        'surface-alt': '#171728',
+        elevated: '#1C1C30',
+        ink: '#F4F4FF', // legacy alias: foreground
         // Foreground scale
-        fg: '#F7F8F8',
-        high: '#D0D6E0',
-        muted: '#8A8F98',
-        dim: '#62666D',
+        fg: '#F4F4FF',
+        high: '#D2D2EE',
+        muted: '#A7A7CF',
+        dim: '#74749A',
         // Hairlines
-        hair: '#23252A',
-        'hair-strong': '#34343A',
-        // Accent: Linear indigo
+        hair: '#24243A',
+        'hair-strong': '#37375A',
+        // Accent: Aurora violet (workhorse) with a cyan partner for gradients
         brand: {
-          50: '#1A1B2E', // dark tint fill
-          100: '#23264A',
-          200: '#343A6B', // subtle borders
-          600: '#828FFF', // light accent / hover-bright
-          700: '#5E6AD2', // workhorse: buttons, links, accents
-          800: '#4C56B8', // pressed
-          DEFAULT: '#5E6AD2',
+          50: '#17172E', // dark tint fill
+          100: '#221F45',
+          200: '#38306E', // subtle borders
+          600: '#A78BFA', // light accent / hover-bright
+          700: '#7C5CFF', // workhorse: buttons, links, accents
+          800: '#6D28D9', // pressed
+          DEFAULT: '#7C5CFF',
         },
-        accent: '#5E6AD2',
+        accent: '#7C5CFF',
+        accent2: '#22D3EE', // cyan, second stop of the aurora gradient
+        amber: '#FF8A3D', // warm hero-glow accent (globe atmosphere, highlights)
         verdict: {
-          good: '#27A644',
-          'good-graphic': '#3FB950',
+          good: '#2FBE6E',
+          'good-graphic': '#34D399',
           mid: '#E2A336',
-          'mid-graphic': '#E2A336',
-          low: '#EB5757',
-          'low-graphic': '#EB5757',
+          'mid-graphic': '#F4B740',
+          low: '#F0577B',
+          'low-graphic': '#FB7185',
         },
       },
       fontFamily: {
@@ -55,8 +58,9 @@ const config: Config = {
         lg: '12px',
       },
       boxShadow: {
-        card: '0 1px 0 0 rgb(255 255 255 / 0.03) inset, 0 1px 2px 0 rgb(0 0 0 / 0.4)',
-        lift: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 16px 40px -20px rgb(0 0 0 / 0.7)',
+        card: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 1px 2px 0 rgb(0 0 0 / 0.4)',
+        lift: '0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 24px 60px -28px rgb(0 0 0 / 0.85)',
+        glow: '0 0 0 1px rgb(124 92 255 / 0.35), 0 10px 40px -12px rgb(124 92 255 / 0.5)',
       },
       keyframes: {
         'fade-up': {

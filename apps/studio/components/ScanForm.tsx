@@ -146,7 +146,7 @@ export function ScanForm({
           {HERO_ACCENT_WORDS.map((w, i) => (
             <span
               key={w}
-              className="mr-[0.28em] text-brand-700"
+              className="gradient-text mr-[0.28em]"
               style={{ ['--wi' as string]: HERO_WORDS.length + i }}
             >
               {w}
