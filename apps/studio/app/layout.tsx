@@ -4,6 +4,7 @@ import { GeistMono } from 'geist/font/mono';
 import { brand } from '@orbiqon/config';
 import { Header } from '@/components/shell/Header';
 import { Footer } from '@/components/shell/Footer';
+import { TiltProvider } from '@/components/motion-tilt';
 import './globals.css';
 
 const sans = GeistSans;
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
         />
+        <TiltProvider />
         <Header />
         <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-14">{children}</main>
         <Footer />

@@ -49,41 +49,60 @@ function FeatureRow({
   );
 }
 
+const HERO_VIDEO_SRC =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260514_135830_bb6491d1-9b66-4aec-9722-13b4dfe3fb46.mp4';
+
 export default function HomePage() {
   return (
-    <div className="space-y-24 sm:space-y-32">
-      {/* Hero */}
-      <section className="relative pt-4">
-        <span className="mesh" aria-hidden />
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <span className="chip border-brand-200 text-brand-700">
-              <Sparkles className="h-3.5 w-3.5" /> Diagnose. Fix. Manage.
-            </span>
-            <h1 className="mt-6 font-display text-5xl font-light leading-[1.0] tracking-tight text-fg sm:text-7xl">
-              When AI answers, are you <span className="mark mark-sweep">cited</span> or invisible?
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              See whether ChatGPT, Claude, Perplexity and Gemini recommend your brand, who they name
-              instead, and where you rank. Real sampled rates, never a fake yes or no.
-            </p>
-            <div className="mt-8 max-w-lg">
-              <HeroChecker />
+    <div>
+      {/* Hero, over a fixed background video. -mt cancels main's top padding so the video
+          starts right under the sticky header. A light scrim keeps the light-theme text and
+          cards legible over whatever frame the video is on. */}
+      <div className="relative -mt-10 sm:-mt-14">
+        <video
+          className="fixed left-0 top-0 z-0 h-screen w-full object-cover"
+          src={HERO_VIDEO_SRC}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+        />
+        <span className="hero-scrim" aria-hidden />
+        <section className="hero-cards bleed relative z-[2] px-5 pb-10 pt-12 sm:px-8 sm:pt-16">
+          <div className="mx-auto w-full max-w-6xl">
+            <div className="grid items-start gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-11">
+              <div>
+                <span className="chip border-brand-200 text-brand-700">
+                  <Sparkles className="h-3.5 w-3.5" /> Diagnose. Fix. Manage.
+                </span>
+                <h1 className="mt-5 font-display text-5xl font-light leading-[1.0] tracking-tight text-fg sm:text-7xl">
+                  When AI answers, are you <span className="mark mark-sweep">cited</span> or invisible?
+                </h1>
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+                  See whether ChatGPT, Claude, Perplexity and Gemini recommend your brand, who they
+                  name instead, and where you rank. Real sampled rates, never a fake yes or no.
+                </p>
+                <div className="mt-6 max-w-lg">
+                  <HeroChecker />
+                </div>
+              </div>
+              <Reveal className="relative">
+                <AnswerArtifact />
+              </Reveal>
             </div>
           </div>
-          <Reveal className="relative">
-            <Tilt>
-              <AnswerArtifact />
-            </Tilt>
-          </Reveal>
-        </div>
-      </section>
+        </section>
+      </div>
 
+      {/* Everything below sits on an opaque full-bleed curtain so the fixed video
+          only shows through the hero above. */}
+      <div className="curtain space-y-24 pt-24 sm:space-y-32 sm:pt-32">
       {/* Social proof stat band */}
       <Reveal as="section" className="border-y border-hair py-14 text-center">
         <p className="mx-auto max-w-3xl text-2xl font-light leading-snug tracking-tight text-fg sm:text-[2rem] sm:leading-[1.2]">
           Millions of buyers now ask AI to recommend a tool before they ever open Google.{' '}
-          <span className="mark">If it doesn&rsquo;t name you, you&rsquo;re not in the room.</span>
+          <span className="brand-emphasis">If it doesn&rsquo;t name you, you&rsquo;re not in the room.</span>
         </p>
         <p className="mt-4 font-mono text-xs uppercase tracking-[0.14em] text-dim">
           Checked live across ChatGPT &middot; Claude &middot; Perplexity &middot; Gemini
@@ -190,7 +209,7 @@ export default function HomePage() {
               <Info className="h-5 w-5" />
             </span>
             <h2 className="mt-5 text-2xl font-light tracking-tight text-fg sm:text-3xl">
-              We report the <span className="mark">rate</span>, not a fake yes or no
+              We report the <span className="brand-emphasis">rate</span>, not a fake yes or no
             </h2>
             <p className="mt-3 max-w-md text-muted">
               AI answers change run to run. Ask once and you get luck. We ask several times per engine
@@ -246,11 +265,12 @@ export default function HomePage() {
             <p className="mt-2 max-w-lg text-muted">No signup, no credit card. Just your brand name.</p>
           </div>
           <Link href="/check" className="btn-primary shrink-0 px-6 text-base">
-            Check my AI visibility
+            Check my AI visibility free
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </Reveal>
+      </div>
     </div>
   );
 }

@@ -34,18 +34,18 @@ export function HeroChecker() {
           />
         </label>
         <label className="block">
-          <span className="sr-only">Category</span>
+          <span className="sr-only">Category (optional)</span>
           <input
             className="field"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="Category, e.g. issue tracking"
-            aria-label="Category"
+            placeholder="Category, e.g. issue tracking (optional)"
+            aria-label="Category (optional)"
           />
         </label>
       </div>
       <MagneticButton type="submit" disabled={!brand.trim()} className="btn-primary mt-2 w-full">
-        Check my AI visibility
+        Check my AI visibility free
         <ArrowRight className="h-4 w-4" />
       </MagneticButton>
       <p className="mt-2.5 text-center font-mono text-[11px] text-dim">

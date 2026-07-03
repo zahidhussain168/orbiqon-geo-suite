@@ -70,6 +70,7 @@ export default function PricingPage() {
         {TIERS.map((tier) => (
           <div
             key={tier.name}
+            data-tilt
             className={`card flex flex-col p-6 ${tier.highlight ? 'ring-1 ring-brand-700' : ''}`}
           >
             <div className="flex items-center justify-between">

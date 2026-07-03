@@ -33,7 +33,7 @@ export default function HowItWorksPage() {
           const Icon = ICON[layer.id];
           return (
             <div key={layer.id} className="contents">
-              <div className="card flex flex-col p-6">
+              <div data-tilt className="card flex flex-col p-6">
                 <span className="grid h-10 w-10 place-items-center rounded bg-surface-alt text-brand-700">
                   <Icon className="h-5 w-5" />
                 </span>

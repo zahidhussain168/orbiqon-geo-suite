@@ -39,7 +39,7 @@ export function AnswerArtifact() {
         <span className="font-mono text-xs uppercase tracking-wide text-dim">Answer</span>
         <br />
         For a fast-moving startup, the strongest options are{' '}
-        <span className="mark mark-sweep font-semibold">Linear</span> for its speed and keyboard-first
+        <span className="brand-emphasis">Linear</span> for its speed and keyboard-first
         workflow, with <span className="font-medium text-high">Jira</span> and{' '}
         <span className="font-medium text-high">Shortcut</span> as heavier alternatives. Teams that
         want simplicity often reach for <span className="font-medium text-high">Asana</span>.

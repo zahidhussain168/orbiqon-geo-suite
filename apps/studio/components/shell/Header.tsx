@@ -83,11 +83,11 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link href="/check" className="btn-primary hidden px-4 text-sm sm:inline-flex">
-            Check your AI visibility free
+            Check my AI visibility free
           </Link>
           <button
             type="button"
-            className="btn-secondary min-h-[40px] px-2 md:hidden"
+            className="btn-secondary px-2 md:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-expanded={mobileOpen}
             aria-label="Toggle menu"
@@ -108,7 +108,8 @@ function ToolsMega() {
       <div className="grid grid-cols-3 gap-1">
         {LAYERS.map((layer) => (
           <div key={layer.id} className="p-2">
-            <p className="eyebrow mb-2 px-2">{layer.label}</p>
+            <p className="eyebrow px-2">{layer.label}</p>
+            <p className="mb-2 px-2 text-xs leading-snug text-dim">{layer.blurb}</p>
             <ul className="space-y-0.5">
               {toolsByLayer(layer.id).map((tool) => (
                 <li key={tool.slug}>
@@ -168,7 +169,7 @@ function MobileNav() {
         ))}
       </div>
       <Link href="/check" className="btn-primary mt-4 w-full">
-        Check your AI visibility free
+        Check my AI visibility free
       </Link>
     </div>
   );

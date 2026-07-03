@@ -45,7 +45,7 @@ export default function AgenciesPage() {
         <h2 className="text-2xl font-semibold tracking-tight text-ink">The math is simple</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {MATH.map((m) => (
-            <div key={m.label} className="card p-6">
+            <div key={m.label} data-tilt className="card p-6">
               <p className="font-mono text-xs uppercase tracking-wide text-dim">{m.label}</p>
               <p
                 className={`mt-2 text-2xl font-semibold tracking-tight ${

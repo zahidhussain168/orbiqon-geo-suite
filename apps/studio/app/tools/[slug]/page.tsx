@@ -87,7 +87,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         <h2 className="text-2xl font-semibold tracking-tight text-ink">What it does</h2>
         <ul className="mt-6 grid gap-4 sm:grid-cols-3">
           {tool.capabilities.map((cap) => (
-            <li key={cap} className="card p-5">
+            <li key={cap} data-tilt className="card p-5">
               <Check className="h-5 w-5 text-brand-700" />
               <p className="mt-3 text-sm leading-relaxed text-muted">{cap}</p>
             </li>
@@ -109,9 +109,9 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         </ol>
       </section>
 
-      {/* Preview area, crafted dark panel */}
+      {/* Preview area, crafted panel */}
       <section>
-        <div className="overflow-hidden rounded-lg border border-hair bg-surface shadow-lift">
+        <div data-tilt className="overflow-hidden rounded-lg border border-hair bg-surface shadow-lift">
           <div className="flex items-center gap-1.5 border-b border-hair px-4 py-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-hair-strong" />
             <span className="h-2.5 w-2.5 rounded-full bg-hair-strong" />

@@ -30,7 +30,7 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-hair bg-surface-alt/50">
+    <footer className="relative z-[1] border-t border-hair bg-surface-alt">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
