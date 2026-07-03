@@ -13,8 +13,8 @@ export type OpenRouterEngine = 'chatgpt' | 'claude' | 'gemini' | 'perplexity';
 /** Default OpenRouter model slugs per engine surface. All overridable via env. */
 export const OPENROUTER_DEFAULT_MODELS: Record<OpenRouterEngine, string> = {
   chatgpt: 'openai/gpt-4o',
-  claude: 'anthropic/claude-3.5-sonnet',
-  gemini: 'google/gemini-2.0-flash-001',
+  claude: 'anthropic/claude-sonnet-4.5',
+  gemini: 'google/gemini-2.5-flash',
   perplexity: 'perplexity/sonar',
 };
 
