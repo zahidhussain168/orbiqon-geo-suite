@@ -439,22 +439,24 @@
     transform: perspective(1100px) rotateX(0deg) translateY(0);
   }
 }
+/* Was 0.7s/0.55s: past the "avoid animation over 500ms" guideline, and it compounds badly
+   with per-item stagger delays on grids (a 4th item could take 800ms+ to finish revealing). */
 .reveal.rise-3d.is-in {
-  animation: rise-3d 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
+  animation: rise-3d 0.48s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
 }
 .reveal {
   opacity: 0;
 }
 .reveal.is-in {
-  animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-  animation-delay: calc(var(--i, 0) * 55ms);
+  animation: fade-up 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
 }
 .word-reveal > span {
   display: inline-block;
   opacity: 0;
-  animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  animation-delay: calc(var(--wi, 0) * 55ms);
+  animation: fade-up 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: calc(var(--wi, 0) * 45ms);
 }
 .magnetic {
   transition: transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
