@@ -31,12 +31,24 @@ export function ToolCard({ tool, index = 0 }: { tool: Tool; index?: number }) {
   function onMove(e: React.PointerEvent<HTMLAnchorElement>) {
     const el = ref.current;
     if (!el) return;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const hover = window.matchMedia?.('(hover: hover)').matches;
     const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
     cancelAnimationFrame(raf.current);
     raf.current = requestAnimationFrame(() => {
       el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
       el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      if (!reduce && hover) {
+        el.style.transform = `perspective(900px) rotateX(${-py * 6}deg) rotateY(${px * 6}deg) translateY(-4px)`;
+      }
     });
+  }
+
+  function onLeave() {
+    const el = ref.current;
+    if (el) el.style.transform = '';
   }
 
   return (
@@ -44,7 +56,8 @@ export function ToolCard({ tool, index = 0 }: { tool: Tool; index?: number }) {
       ref={ref}
       href={tool.href}
       onPointerMove={onMove}
-      className="card spotlight group flex h-full flex-col p-5"
+      onPointerLeave={onLeave}
+      className="card spotlight group flex h-full flex-col p-5 [transform-style:preserve-3d]"
     >
       <div className="flex items-center justify-between">
         <span className="grid h-9 w-9 place-items-center rounded bg-surface-alt text-brand-700">

@@ -2,91 +2,165 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Aurora design tokens ───────────────────────────────────────────────────── */
+/* ── Stripe design tokens (getdesign.md), light + dark ──────────────────────── */
+/* Channel triplets (--ch-*) drive the Tailwind palette; full-color aliases (--fg, --accent...)
+   derive from them, so overriding only the channels in .dark flips everything at once. */
 :root {
+  color-scheme: light;
+  --ch-canvas: 255 255 255;
+  --ch-surface: 255 255 255;
+  --ch-surface-alt: 246 249 252;
+  --ch-elevated: 255 255 255;
+  --ch-cream: 245 233 212;
+  --ch-fg: 13 37 61;
+  --ch-high: 39 57 81;
+  --ch-muted: 100 116 141;
+  --ch-dim: 138 151 172;
+  --ch-hair: 227 232 238;
+  --ch-hair-strong: 211 219 229;
+  --ch-brand-50: 241 240 254;
+  --ch-brand-100: 229 227 253;
+  --ch-brand-200: 185 185 249;
+  --ch-brand-600: 102 94 253;
+  --ch-brand-700: 83 58 253;
+  --ch-brand-800: 68 52 212;
+  --ch-brand-900: 28 30 84;
+  --ch-ruby: 234 34 97;
+  --ch-magenta: 249 107 238;
+  --ch-signal: 234 34 97;
+  --ch-highlight: 229 227 253;
+  --ch-good: 14 159 110;
+  --ch-good-graphic: 18 185 129;
+  --ch-mid: 183 121 31;
+  --ch-mid-graphic: 214 158 46;
+  --ch-low: 234 34 97;
+  --ch-low-graphic: 249 107 238;
+  --ch-field-border: 168 195 222;
+  /* mesh blooms (comma rgb, used inside the hero gradient) */
+  --mesh-1: 245, 233, 212;
+  --mesh-2: 249, 168, 92;
+  --mesh-3: 160, 140, 255;
+  --mesh-4: 83, 58, 253;
+  --mesh-5: 234, 34, 97;
+  --mesh-opacity: 0.9;
+}
+
+.dark {
   color-scheme: dark;
-  --canvas: #0a0a12;
-  --surface: #13131f;
-  --elevated: #1c1c30;
-  --hair: #24243a;
-  --fg: #f4f4ff;
-  --muted: #a7a7cf;
-  --dim: #74749a;
-  --accent: #7c5cff;
-  --accent-rgb: 124, 92, 255;
-  --accent2: #22d3ee;
-  --accent2-rgb: 34, 211, 238;
-  /* Map Geist's own variables onto the app's font contract. */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --ch-canvas: 10 11 30; /* deep indigo-navy */
+  --ch-surface: 20 22 46;
+  --ch-surface-alt: 16 18 39;
+  --ch-elevated: 26 29 56;
+  --ch-cream: 26 24 54;
+  --ch-fg: 234 237 248;
+  --ch-high: 197 204 222;
+  --ch-muted: 150 162 187;
+  --ch-dim: 111 122 148;
+  --ch-hair: 35 39 66;
+  --ch-hair-strong: 52 57 92;
+  --ch-brand-50: 26 27 54;
+  --ch-brand-100: 35 34 78;
+  --ch-brand-200: 62 58 120;
+  --ch-brand-600: 156 142 255;
+  --ch-brand-700: 124 108 255;
+  --ch-brand-800: 99 88 240;
+  --ch-brand-900: 20 22 46;
+  --ch-ruby: 255 105 140;
+  --ch-magenta: 249 122 240;
+  --ch-signal: 255 105 140;
+  --ch-highlight: 45 42 92;
+  --ch-good: 52 211 153;
+  --ch-good-graphic: 52 211 153;
+  --ch-mid: 224 176 74;
+  --ch-mid-graphic: 240 192 96;
+  --ch-low: 255 105 140;
+  --ch-low-graphic: 249 122 240;
+  --ch-field-border: 62 68 104;
+  --mesh-1: 60, 50, 120;
+  --mesh-2: 120, 70, 40;
+  --mesh-3: 110, 92, 255;
+  --mesh-4: 83, 58, 253;
+  --mesh-5: 234, 34, 97;
+  --mesh-opacity: 0.55;
+}
+
+:root,
+.dark {
+  /* full-color aliases for inline styles / component CSS */
+  --canvas: rgb(var(--ch-canvas));
+  --surface: rgb(var(--ch-surface));
+  --surface-alt: rgb(var(--ch-surface-alt));
+  --hair: rgb(var(--ch-hair));
+  --hair-strong: rgb(var(--ch-hair-strong));
+  --fg: rgb(var(--ch-fg));
+  --muted: rgb(var(--ch-muted));
+  --dim: rgb(var(--ch-dim));
+  --accent: rgb(var(--ch-brand-700));
+  --accent-rgb: var(--ch-brand-700);
+  --ruby: rgb(var(--ch-ruby));
+  --magenta: rgb(var(--ch-magenta));
+  --signal: rgb(var(--ch-signal));
+  --field-border: rgb(var(--ch-field-border));
+  --font-sans: var(--font-geist-sans), 'SF Pro Display', system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', monospace;
 }
 
 @layer base {
   body {
     @apply bg-canvas font-sans text-fg antialiased;
+    font-weight: 300;
+    font-feature-settings: 'ss01';
   }
-  /* Very subtle film grain for texture on the dark canvas. */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Weight-300 elegance with negative tracking, the Stripe signature. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 300;
+    letter-spacing: -0.02em;
   }
-  body > * {
-    position: relative;
-    z-index: 1;
+  h1 {
+    letter-spacing: -0.025em;
+  }
+  /* Tabular figures on all numbers (Stripe's quiet financial DNA). */
+  .tnum,
+  [class*='tabular'] {
+    font-feature-settings: 'tnum';
   }
 
   ::selection {
-    background: rgba(var(--accent-rgb), 0.28);
-    color: #fff;
+    background: rgb(var(--accent-rgb) / 0.18);
+    color: var(--fg);
   }
   :focus-visible {
     @apply outline-none ring-2 ring-brand-700 ring-offset-2 ring-offset-canvas;
   }
   ::-webkit-scrollbar {
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-hair-strong;
+    @apply rounded-full;
+    background: var(--hair-strong);
+    border: 3px solid var(--canvas);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #4a4a52;
+    background: #c2cdda;
   }
 }
 
 @layer components {
+  /* ── Cards & surfaces ──────────────────────────────────────────────────── */
   .card {
-    @apply relative rounded-lg border border-hair bg-surface shadow-card;
+    @apply rounded-lg border border-hair bg-surface shadow-card;
     transition:
       border-color 0.2s ease,
       box-shadow 0.3s ease,
       transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  /* A hairline top sheen gives every panel a lit-from-above, dimensional edge. */
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 1px;
-    border-radius: inherit;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.14) 22%,
-      rgba(255, 255, 255, 0.14) 78%,
-      transparent
-    );
-    pointer-events: none;
-  }
-  /* Interactive cards: a pointer-following glow and a lift on hover. */
   .spotlight {
+    position: relative;
     overflow: hidden;
-    transform: translateZ(0);
   }
   .spotlight::after {
     content: '';
@@ -95,136 +169,155 @@
     border-radius: inherit;
     background: radial-gradient(
       260px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(var(--accent-rgb), 0.16),
-      transparent 62%
+      rgb(var(--accent-rgb) / 0.08),
+      transparent 60%
     );
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
   }
   .spotlight:hover {
-    transform: translateY(-4px);
-    border-color: theme('colors.hair-strong');
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 24px 60px -28px rgb(0 0 0 / 0.85);
+    transform: translateY(-3px);
+    border-color: var(--hair-strong);
+    box-shadow:
+      0 8px 24px 0 rgb(0 55 112 / 0.1),
+      0 2px 6px 0 rgb(0 55 112 / 0.05);
   }
   .spotlight:hover::after {
     opacity: 1;
   }
+
+  /* ── Form controls ─────────────────────────────────────────────────────── */
   .field {
-    @apply w-full rounded border border-hair bg-elevated px-3.5 py-2.5 text-[16px] text-fg
+    @apply w-full rounded-md border px-3 py-2.5 text-[16px] font-light text-fg
       placeholder:text-dim transition-colors focus:border-brand-700 sm:text-sm;
+    background-color: var(--surface);
+    border-color: var(--field-border);
   }
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-hair bg-surface px-3 py-1
-      text-xs text-muted transition-colors;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-brand-200 px-3 py-1
+      text-xs font-normal text-brand-800 transition-colors;
+    background-color: rgb(var(--ch-brand-50));
   }
   .eyebrow {
-    @apply font-mono text-xs font-medium uppercase tracking-[0.14em] text-dim;
+    @apply font-mono text-xs font-medium uppercase tracking-[0.12em] text-dim;
   }
-  /* Aurora primary: violet→indigo gradient fill, white label, soft violet glow. */
+
+  /* ── Buttons: Stripe pills, one filled indigo per band ─────────────────── */
   .btn-primary {
-    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded px-4 py-2
-      text-sm font-medium text-white transition-all
+    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded-full bg-brand-700 px-4 py-2
+      text-sm font-normal text-white transition-colors hover:bg-brand-800 active:bg-brand-900
       disabled:pointer-events-none disabled:opacity-40;
-    background-image: linear-gradient(180deg, #8b6bff, #6d47f5);
-    box-shadow:
-      0 1px 0 0 rgb(255 255 255 / 0.18) inset,
-      0 6px 20px -8px rgb(124 92 255 / 0.7);
-  }
-  .btn-primary:hover {
-    background-image: linear-gradient(180deg, #9d80ff, #7c5cff);
-    box-shadow:
-      0 1px 0 0 rgb(255 255 255 / 0.22) inset,
-      0 8px 26px -8px rgb(124 92 255 / 0.85);
-  }
-  .btn-primary:active {
-    background-image: linear-gradient(180deg, #7c5cff, #5b34d6);
   }
   .btn-secondary {
-    @apply inline-flex min-h-[42px] items-center justify-center gap-1.5 rounded border border-hair
-      bg-surface px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:border-hair-strong
-      hover:text-fg disabled:pointer-events-none disabled:opacity-40;
+    @apply inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-full border border-brand-700
+      bg-surface px-4 py-2 text-sm font-normal text-brand-700 transition-colors hover:bg-brand-50
+      disabled:pointer-events-none disabled:opacity-40;
   }
   .link {
-    @apply font-medium text-brand-700 underline decoration-brand-700/30 underline-offset-2 hover:decoration-brand-700;
+    @apply font-normal text-brand-700 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-700;
   }
 
-  /* Aurora hero backdrop: twin violet + cyan glows fading down, over a faint dot grid. */
-  .hero-backdrop {
+  /* ── Signature: indigo gradient emphasis (replaces the highlighter) ────── */
+  .mark,
+  .gradient-text {
+    background: linear-gradient(96deg, #533afd 0%, #7b5cff 40%, #ea2261 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-right: 0.02em;
+  }
+  .mark-sweep {
+    /* emphasis is via gradient text, no reveal needed */
+  }
+
+  .strike {
+    text-decoration: line-through;
+    text-decoration-color: var(--ruby);
+    text-decoration-thickness: 2px;
+    color: var(--dim);
+  }
+
+  /* ── Signature: pastel gradient-mesh hero backdrop ─────────────────────── */
+  .mesh {
     position: absolute;
-    inset: -20% -20% auto -20%;
-    height: 560px;
+    inset: -10% -10% auto -10%;
+    height: 620px;
     z-index: -1;
     pointer-events: none;
+    filter: blur(56px) saturate(120%);
+    opacity: var(--mesh-opacity);
     background:
-      radial-gradient(46% 60% at 22% -12%, rgba(var(--accent-rgb), 0.32), transparent 62%),
-      radial-gradient(42% 58% at 84% -6%, rgba(var(--accent2-rgb), 0.2), transparent 60%),
-      radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size:
-      100% 100%,
-      100% 100%,
-      26px 26px;
-    -webkit-mask-image: radial-gradient(72% 100% at 50% 0%, #000 26%, transparent 80%);
-    mask-image: radial-gradient(72% 100% at 50% 0%, #000 26%, transparent 80%);
+      radial-gradient(38% 52% at 12% 8%, rgb(var(--mesh-1) / 0.95), transparent 60%),
+      radial-gradient(34% 46% at 32% 2%, rgb(var(--mesh-2) / 0.65), transparent 62%),
+      radial-gradient(40% 56% at 58% 6%, rgb(var(--mesh-3) / 0.7), transparent 60%),
+      radial-gradient(42% 60% at 78% 0%, rgb(var(--mesh-4) / 0.6), transparent 58%),
+      radial-gradient(36% 50% at 96% 12%, rgb(var(--mesh-5) / 0.5), transparent 60%);
+    -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 92%);
+    mask-image: linear-gradient(180deg, #000 40%, transparent 92%);
   }
 
-  /* Warm amber glow: sits behind the 3D globe for the Myna-style hero focal point. */
-  .glow-warm {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(72px);
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(
-      circle,
-      rgba(255, 138, 61, 0.62),
-      rgba(255, 138, 61, 0.14) 46%,
-      transparent 72%
-    );
-  }
-
-  /* Aurora glow: a violet→cyan orb behind hero focal points. */
-  .glow {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(90px);
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(
-      circle,
-      rgba(var(--accent-rgb), 0.7),
-      rgba(var(--accent2-rgb), 0.35) 45%,
-      transparent 72%
-    );
-  }
-
-  /* Dark glass for the product mockup. */
+  /* "glass" for product mockups: surface card with elevated lift. */
   .glass {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 24px 60px -28px rgb(0 0 0 / 0.8);
+    background: var(--surface);
+    border: 1px solid var(--hair);
+    box-shadow:
+      0 8px 24px 0 rgb(0 55 112 / 0.1),
+      0 2px 6px 0 rgb(0 55 112 / 0.05);
+  }
+  /* Dark elevation: shadows read as depth via black + a faint top highlight, not blue tint. */
+  .dark .card,
+  .dark .glass {
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.04) inset,
+      0 18px 44px -24px rgb(0 0 0 / 0.7);
+  }
+  .dark .spotlight:hover {
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.05) inset,
+      0 22px 50px -26px rgb(0 0 0 / 0.75);
   }
   .float {
     animation: float 7s ease-in-out infinite;
   }
 
-  /* Dot-grid backdrop for hero/section framing. */
-  .dotgrid {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 26px 26px;
+  /* ── 3D tilt (pointer-driven perspective, used on mockups and cards) ────── */
+  .tilt3d {
+    perspective: 1100px;
+  }
+  .tilt3d-inner {
+    position: relative;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+      translateY(calc(var(--lift, 0) * -6px)) scale(calc(1 + var(--lift, 0) * 0.012));
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform;
+  }
+  .tilt3d-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    background: radial-gradient(
+      360px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(255 255 255 / 0.22),
+      transparent 60%
+    );
+    opacity: calc(var(--lift, 0) * 1);
+    transition: opacity 0.45s ease;
+    mix-blend-mode: soft-light;
   }
 
-  .gradient-text {
-    background: linear-gradient(100deg, #a78bfa, #22d3ee, #a78bfa);
-    background-size: 220% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-flow 8s ease-in-out infinite;
+  .dotgrid {
+    background-image: radial-gradient(rgba(13, 37, 61, 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Retired dark-theme decorative glows. */
+  .glow,
+  .glow-warm,
+  .hero-backdrop {
+    display: none !important;
   }
 
   .marquee {
@@ -259,15 +352,6 @@
     transform: translateY(-8px);
   }
 }
-@keyframes gradient-flow {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -275,6 +359,21 @@
   to {
     transform: translateX(-50%);
   }
+}
+/* 3D scroll entrance: content rises out of the page on a subtle X-axis rotation. */
+@keyframes rise-3d {
+  from {
+    opacity: 0;
+    transform: perspective(1100px) rotateX(7deg) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1100px) rotateX(0deg) translateY(0);
+  }
+}
+.reveal.rise-3d.is-in {
+  animation: rise-3d 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
 }
 .reveal {
   opacity: 0;

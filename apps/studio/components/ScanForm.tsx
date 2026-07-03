@@ -137,21 +137,24 @@ export function ScanForm({
       {/* Hero, the form is the product */}
       <section className="relative text-center">
         <span className="hero-backdrop" aria-hidden />
-        <h1 className="word-reveal text-3xl font-bold leading-tight tracking-tight text-fg sm:text-[2.75rem] sm:leading-[1.1]">
+        <h1 className="word-reveal text-3xl font-light leading-tight tracking-tight text-fg sm:text-[2.75rem] sm:leading-[1.08]">
           {HERO_WORDS.map((w, i) => (
             <span key={w} className="mr-[0.28em]" style={{ ['--wi' as string]: i }}>
               {w}
             </span>
           ))}
-          {HERO_ACCENT_WORDS.map((w, i) => (
-            <span
-              key={w}
-              className="gradient-text mr-[0.28em]"
-              style={{ ['--wi' as string]: HERO_WORDS.length + i }}
-            >
-              {w}
-            </span>
-          ))}
+          {HERO_ACCENT_WORDS.map((w, i) => {
+            const isLast = i === HERO_ACCENT_WORDS.length - 1;
+            return (
+              <span
+                key={w}
+                className={`mr-[0.28em] ${isLast ? 'mark mark-sweep' : ''}`}
+                style={{ ['--wi' as string]: HERO_WORDS.length + i }}
+              >
+                {w}
+              </span>
+            );
+          })}
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">
           Check whether ChatGPT, Claude, Perplexity &amp; Gemini cite your brand. About 60 seconds.

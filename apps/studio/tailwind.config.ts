@@ -1,54 +1,59 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Aurora design system.
- * Dark glass over a violet-tinted near-black canvas, a violet→cyan accent that glows,
- * gradient headlines and buttons, hairline borders, Geist + Geist Mono. Rich and alive,
- * not flat. Verdict colors are the score only.
+ * Stripe design system (from getdesign.md / VoltAgent awesome-design-md).
+ * Signature: weight-300 elegant type with negative tracking, a pastel gradient-mesh hero
+ * backdrop (cream -> orange -> lavender -> indigo -> ruby), pill CTAs, one indigo (#533AFD)
+ * per band, white cards with blue-tinted shadows, tabular figures on all numbers. Geist stands
+ * in for Sohne. Ink #0D253D on white; canvas-soft #F6F9FC and cream #F5E9D4 section bands.
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx,mdx}', './components/**/*.{ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // Violet-tinted near-black surfaces
-        canvas: '#0A0A12',
-        paper: '#0A0A12',
-        surface: '#13131F',
-        'surface-alt': '#171728',
-        elevated: '#1C1C30',
-        ink: '#F4F4FF', // legacy alias: foreground
-        // Foreground scale
-        fg: '#F4F4FF',
-        high: '#D2D2EE',
-        muted: '#A7A7CF',
-        dim: '#74749A',
-        // Hairlines
-        hair: '#24243A',
-        'hair-strong': '#37375A',
-        // Accent: Aurora violet (workhorse) with a cyan partner for gradients
+        // Every token is variable-driven so the whole palette flips on the `.dark` class.
+        // Channel triplets (--ch-*) are defined in globals.css for light (:root) and dark (.dark).
+        canvas: 'rgb(var(--ch-canvas) / <alpha-value>)',
+        paper: 'rgb(var(--ch-canvas) / <alpha-value>)',
+        surface: 'rgb(var(--ch-surface) / <alpha-value>)',
+        'surface-alt': 'rgb(var(--ch-surface-alt) / <alpha-value>)',
+        elevated: 'rgb(var(--ch-elevated) / <alpha-value>)',
+        cream: 'rgb(var(--ch-cream) / <alpha-value>)',
+        ink: 'rgb(var(--ch-fg) / <alpha-value>)',
+        fg: 'rgb(var(--ch-fg) / <alpha-value>)',
+        high: 'rgb(var(--ch-high) / <alpha-value>)',
+        muted: 'rgb(var(--ch-muted) / <alpha-value>)',
+        dim: 'rgb(var(--ch-dim) / <alpha-value>)',
+        hair: 'rgb(var(--ch-hair) / <alpha-value>)',
+        'hair-strong': 'rgb(var(--ch-hair-strong) / <alpha-value>)',
         brand: {
-          50: '#17172E', // dark tint fill
-          100: '#221F45',
-          200: '#38306E', // subtle borders
-          600: '#A78BFA', // light accent / hover-bright
-          700: '#7C5CFF', // workhorse: buttons, links, accents
-          800: '#6D28D9', // pressed
-          DEFAULT: '#7C5CFF',
+          50: 'rgb(var(--ch-brand-50) / <alpha-value>)',
+          100: 'rgb(var(--ch-brand-100) / <alpha-value>)',
+          200: 'rgb(var(--ch-brand-200) / <alpha-value>)',
+          600: 'rgb(var(--ch-brand-600) / <alpha-value>)',
+          700: 'rgb(var(--ch-brand-700) / <alpha-value>)',
+          800: 'rgb(var(--ch-brand-800) / <alpha-value>)',
+          900: 'rgb(var(--ch-brand-900) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--ch-brand-700) / <alpha-value>)',
         },
-        accent: '#7C5CFF',
-        accent2: '#22D3EE', // cyan, second stop of the aurora gradient
-        amber: '#FF8A3D', // warm hero-glow accent (globe atmosphere, highlights)
+        accent: 'rgb(var(--ch-brand-700) / <alpha-value>)',
+        ruby: 'rgb(var(--ch-ruby) / <alpha-value>)',
+        magenta: 'rgb(var(--ch-magenta) / <alpha-value>)',
+        signal: 'rgb(var(--ch-signal) / <alpha-value>)',
+        highlight: 'rgb(var(--ch-highlight) / <alpha-value>)',
         verdict: {
-          good: '#2FBE6E',
-          'good-graphic': '#34D399',
-          mid: '#E2A336',
-          'mid-graphic': '#F4B740',
-          low: '#F0577B',
-          'low-graphic': '#FB7185',
+          good: 'rgb(var(--ch-good) / <alpha-value>)',
+          'good-graphic': 'rgb(var(--ch-good-graphic) / <alpha-value>)',
+          mid: 'rgb(var(--ch-mid) / <alpha-value>)',
+          'mid-graphic': 'rgb(var(--ch-mid-graphic) / <alpha-value>)',
+          low: 'rgb(var(--ch-low) / <alpha-value>)',
+          'low-graphic': 'rgb(var(--ch-low-graphic) / <alpha-value>)',
         },
       },
       fontFamily: {
+        display: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
@@ -58,9 +63,10 @@ const config: Config = {
         lg: '12px',
       },
       boxShadow: {
-        card: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 1px 2px 0 rgb(0 0 0 / 0.4)',
-        lift: '0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 24px 60px -28px rgb(0 0 0 / 0.85)',
-        glow: '0 0 0 1px rgb(124 92 255 / 0.35), 0 10px 40px -12px rgb(124 92 255 / 0.5)',
+        // Stripe blue-tinted elevation
+        card: '0 1px 3px 0 rgb(0 55 112 / 0.08)',
+        lift: '0 8px 24px 0 rgb(0 55 112 / 0.10), 0 2px 6px 0 rgb(0 55 112 / 0.05)',
+        mark: '0 2px 0 0 rgb(83 58 253 / 0.9)',
       },
       keyframes: {
         'fade-up': {

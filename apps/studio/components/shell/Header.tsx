@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, ArrowRight, Radar } from 'lucide-react';
 import { brand, LAYERS, toolsByLayer } from '@orbiqon/config';
+import { ThemeToggle } from './ThemeToggle';
 
 const NAV = [
   { label: 'How it works', href: '/how-it-works' },
@@ -80,6 +81,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link href="/check" className="btn-primary hidden px-4 text-sm sm:inline-flex">
             Check your AI visibility free
           </Link>

@@ -42,8 +42,15 @@ const ORG_JSON_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
+        <script
+          // Apply the saved theme before paint to avoid a flash. Default is light.
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.theme==='dark')document.documentElement.classList.add('dark')}catch(e){}`,
+          }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

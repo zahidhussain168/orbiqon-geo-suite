@@ -133,6 +133,58 @@ export function MagneticButton({
   );
 }
 
+/**
+ * Pointer-driven 3D tilt. The wrapper holds the perspective; the inner element rotates toward the
+ * cursor and lifts on the Z axis, springing back on leave. Hover devices only, reduced-motion safe.
+ */
+export function Tilt({
+  children,
+  className = '',
+  max = 9,
+}: {
+  children: ReactNode;
+  className?: string;
+  max?: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const raf = useRef(0);
+
+  function onMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (prefersReduced() || !window.matchMedia('(hover: hover)').matches) return;
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    cancelAnimationFrame(raf.current);
+    raf.current = requestAnimationFrame(() => {
+      el.style.setProperty('--ry', `${px * max}deg`);
+      el.style.setProperty('--rx', `${-py * max}deg`);
+      el.style.setProperty('--lift', '1');
+      el.style.setProperty('--mx', `${(px + 0.5) * 100}%`);
+      el.style.setProperty('--my', `${(py + 0.5) * 100}%`);
+    });
+  }
+
+  function reset() {
+    const el = ref.current;
+    if (!el) return;
+    cancelAnimationFrame(raf.current);
+    el.style.setProperty('--rx', '0deg');
+    el.style.setProperty('--ry', '0deg');
+    el.style.setProperty('--lift', '0');
+  }
+
+  return (
+    <div ref={ref} onPointerMove={onMove} onPointerLeave={reset} className={`tilt3d ${className}`}>
+      <div className="tilt3d-inner">
+        {children}
+        <span className="tilt3d-glare" aria-hidden />
+      </div>
+    </div>
+  );
+}
+
 /** Splits a heading into word spans that fade up in sequence on load. */
 export function WordReveal({ text, className = '' }: { text: string; className?: string }) {
   const words = text.split(' ');
