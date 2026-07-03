@@ -98,8 +98,8 @@ export default function HomePage() {
       {/* Everything below sits on an opaque full-bleed curtain so the fixed video
           only shows through the hero above. */}
       <div className="curtain space-y-24 pt-24 sm:space-y-32 sm:pt-32">
-      {/* Social proof stat band */}
-      <Reveal as="section" className="border-y border-hair py-14 text-center">
+      {/* Social proof stat band, tinted to break the page's rhythm right after the hero */}
+      <Reveal as="section" className="band border-y border-hair py-14 text-center">
         <p className="mx-auto max-w-3xl text-2xl font-light leading-snug tracking-tight text-fg sm:text-[2rem] sm:leading-[1.2]">
           Millions of buyers now ask AI to recommend a tool before they ever open Google.{' '}
           <span className="brand-emphasis">If it doesn&rsquo;t name you, you&rsquo;re not in the room.</span>
@@ -159,8 +159,8 @@ export default function HomePage() {
         />
       </section>
 
-      {/* How it works, numbered */}
-      <section>
+      {/* How it works, numbered. Tinted band for rhythm against the flat canvas above/below. */}
+      <section className="band py-16 sm:py-20">
         <Reveal className="max-w-2xl">
           <p className="eyebrow">How it works</p>
           <h2 className="mt-3 text-3xl font-light tracking-tight text-fg sm:text-4xl">
