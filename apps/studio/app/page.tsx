@@ -33,7 +33,7 @@ function FeatureRow({
     <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <Reveal className={flip ? 'lg:order-2' : ''}>
         <p className="eyebrow">{eyebrow}</p>
-        <h3 className="mt-3 text-3xl font-light tracking-tight text-fg sm:text-4xl">{title}</h3>
+        <h3 className="mt-3 text-3xl tracking-tight text-fg sm:text-4xl">{title}</h3>
         <p className="mt-4 max-w-md text-muted">{body}</p>
         <ul className="mt-5 space-y-2.5">
           {points.map((p) => (
@@ -76,7 +76,7 @@ export default function HomePage() {
                 <span className="chip border-brand-200 text-brand-700">
                   <Sparkles className="h-3.5 w-3.5" /> Diagnose. Fix. Manage.
                 </span>
-                <h1 className="mt-5 font-display text-5xl font-light leading-[1.0] tracking-tight text-fg sm:text-7xl">
+                <h1 className="mt-5 font-display text-5xl leading-[1.02] tracking-tight text-fg sm:text-7xl">
                   When AI answers, are you <span className="mark mark-sweep">cited</span> or invisible?
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
@@ -100,7 +100,7 @@ export default function HomePage() {
       <div className="curtain space-y-24 pt-24 sm:space-y-32 sm:pt-32">
       {/* Social proof stat band */}
       <Reveal as="section" className="border-y border-hair py-14 text-center">
-        <p className="mx-auto max-w-3xl text-2xl font-light leading-snug tracking-tight text-fg sm:text-[2rem] sm:leading-[1.2]">
+        <p className="mx-auto max-w-3xl text-2xl font-normal leading-snug tracking-tight text-fg sm:text-[2rem] sm:leading-[1.2]">
           Millions of buyers now ask AI to recommend a tool before they ever open Google.{' '}
           <span className="brand-emphasis">If it doesn&rsquo;t name you, you&rsquo;re not in the room.</span>
         </p>
@@ -142,28 +142,45 @@ export default function HomePage() {
             </Tilt>
           }
         />
-        <FeatureRow
-          eyebrow="The rivals"
-          title="Know who AI names instead of you"
-          body="Every competitor the engines recommend in your place, ranked by how often they appear, so your share of voice stops being a black box."
-          points={[
-            'Share of voice across your category',
-            'The gap between you and the leader',
-            'Who to overtake, and by how much',
-          ]}
-          visual={
-            <Tilt>
-              <CompetitorMockup />
-            </Tilt>
-          }
-        />
       </section>
+
+      {/* The rivals: a full-width stacked panel, deliberately not another split row
+          (the third consecutive left-right split reads as templated) */}
+      <Reveal as="section" className="card overflow-hidden">
+        <div className="grid gap-8 p-8 sm:p-10">
+          <div className="max-w-2xl">
+            <p className="eyebrow">The rivals</p>
+            <h3 className="mt-3 text-3xl tracking-tight text-fg sm:text-4xl">
+              Know who AI names instead of you
+            </h3>
+            <p className="mt-4 max-w-md text-muted">
+              Every competitor the engines recommend in your place, ranked by how often they appear,
+              so your share of voice stops being a black box.
+            </p>
+          </div>
+          <div className="grid gap-x-8 gap-y-3 sm:grid-cols-3">
+            {[
+              'Share of voice across your category',
+              'The gap between you and the leader',
+              'Who to overtake, and by how much',
+            ].map((p) => (
+              <p key={p} className="flex items-start gap-2.5 text-sm text-high">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
+                {p}
+              </p>
+            ))}
+          </div>
+          <Tilt>
+            <CompetitorMockup />
+          </Tilt>
+        </div>
+      </Reveal>
 
       {/* How it works, numbered */}
       <section>
         <Reveal className="max-w-2xl">
           <p className="eyebrow">How it works</p>
-          <h2 className="mt-3 text-3xl font-light tracking-tight text-fg sm:text-4xl">
+          <h2 className="mt-3 text-3xl tracking-tight text-fg sm:text-4xl">
             From blank box to a real read in about a minute
           </h2>
         </Reveal>
@@ -177,7 +194,7 @@ export default function HomePage() {
                   <s.icon className="h-4.5 w-4.5" />
                 </span>
               </div>
-              <h3 className="mt-4 text-base font-light text-fg">{s.title}</h3>
+              <h3 className="mt-4 text-base text-fg">{s.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.body}</p>
             </Reveal>
           ))}
@@ -187,8 +204,7 @@ export default function HomePage() {
       {/* The suite */}
       <section>
         <Reveal className="max-w-2xl">
-          <p className="eyebrow">The suite</p>
-          <h2 className="mt-3 text-3xl font-light tracking-tight text-fg sm:text-4xl">
+          <h2 className="text-3xl tracking-tight text-fg sm:text-4xl">
             One free check, then the tools to actually fix it
           </h2>
           <p className="mt-3 text-muted">
@@ -208,7 +224,7 @@ export default function HomePage() {
             <span className="grid h-11 w-11 place-items-center rounded-lg border border-hair bg-surface-alt text-brand-700">
               <Info className="h-5 w-5" />
             </span>
-            <h2 className="mt-5 text-2xl font-light tracking-tight text-fg sm:text-3xl">
+            <h2 className="mt-5 text-2xl tracking-tight text-fg sm:text-3xl">
               We report the <span className="brand-emphasis">rate</span>, not a fake yes or no
             </h2>
             <p className="mt-3 max-w-md text-muted">
@@ -237,8 +253,8 @@ export default function HomePage() {
               ))}
             </div>
             <p className="text-sm text-high">
-              Cited in <span className="font-light text-brand-700">4 of 5</span> samples ={' '}
-              <span className="font-mono font-light text-fg">80%</span> rate
+              Cited in <span className="font-semibold text-brand-700">4 of 5</span> samples ={' '}
+              <span className="font-mono font-normal text-fg">80%</span> rate
             </p>
           </div>
         </div>
@@ -259,7 +275,7 @@ export default function HomePage() {
       <Reveal as="section" className="relative overflow-hidden rounded-lg border border-hair bg-surface-alt/70">
         <div className="dotgrid relative flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
           <div>
-            <h2 className="max-w-xl text-3xl font-light tracking-tight text-fg sm:text-4xl">
+            <h2 className="max-w-xl text-3xl tracking-tight text-fg sm:text-4xl">
               Find out if AI recommends you. Free, in about a minute.
             </h2>
             <p className="mt-2 max-w-lg text-muted">No signup, no credit card. Just your brand name.</p>
