@@ -12,10 +12,10 @@ rank.
 Two packages are the **reusable core** of the whole suite (every future tool plugs into them).
 They are framework-agnostic and contain **no app-specific code**:
 
-- **`@orbiqon/query-engine`** — "ask the AIs and read the answer." Given a prompt, it queries
+- **`@orbiqon/query-engine`** - "ask the AIs and read the answer." Given a prompt, it queries
   each engine _N_ times and reports a citation **rate** (not a fake yes/no), with the named
   brands, cited URLs, and ordering. Cost is controlled by a per-scan call cap + caching.
-- **`@orbiqon/entity-resolver`** — "did they mean us?" Fuzzy-matches brand names (aliases,
+- **`@orbiqon/entity-resolver`** - "did they mean us?" Fuzzy-matches brand names (aliases,
   domains, misspellings), extracts competitors + cited URLs, and computes rank + sentiment.
 
 Supporting packages / apps:
