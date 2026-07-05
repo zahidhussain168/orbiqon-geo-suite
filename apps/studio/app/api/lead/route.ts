@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getPrisma } from '@orbiqon/db';
+import { sendReportEmail } from '@/lib/email/send-report';
+import type { ScanResult } from '@/lib/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -40,14 +42,32 @@ export async function POST(req: Request) {
 
   try {
     // Only link the scanId if it actually exists (avoids a FK error on a stale/unknown id).
-    const scanId = parsed.data.scanId
-      ? (await prisma.scan.findUnique({ where: { id: parsed.data.scanId }, select: { id: true } }))
-          ?.id
-      : undefined;
+    // Select resultJson too, so a 'full-report' lead can email the report without a second query.
+    const scan = parsed.data.scanId
+      ? await prisma.scan.findUnique({
+          where: { id: parsed.data.scanId },
+          select: { id: true, resultJson: true },
+        })
+      : null;
+
     await prisma.lead.create({
-      data: { email: parsed.data.email, scanId, source: parsed.data.source },
+      data: { email: parsed.data.email, scanId: scan?.id, source: parsed.data.source },
     });
-    return NextResponse.json({ ok: true, persisted: true });
+
+    // The report email is best-effort: a delivery failure should not turn a successful lead
+    // capture into a 500, the lead is already saved either way.
+    let emailed = false;
+    if (parsed.data.source === 'full-report' && scan?.resultJson) {
+      try {
+        const result = scan.resultJson as unknown as ScanResult;
+        const { sent } = await sendReportEmail(parsed.data.email, result);
+        emailed = sent;
+      } catch (err) {
+        console.error('[amicited] report email threw:', err);
+      }
+    }
+
+    return NextResponse.json({ ok: true, persisted: true, emailed });
   } catch (err) {
     console.error('[amicited] lead capture failed:', err);
     return NextResponse.json({ error: 'Could not save email.' }, { status: 500 });

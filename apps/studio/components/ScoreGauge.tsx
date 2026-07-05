@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { scoreVerdict } from '@/lib/verdict';
+
+export { scoreVerdict };
 
 /**
  * Animated visibility gauge. Sweeps the ring and counts up on mount; renders the final value
@@ -62,11 +65,4 @@ export function ScoreGauge({ score, size = 176 }: { score: number; size?: number
       </div>
     </div>
   );
-}
-
-/** Verdict labels are factual, not alarmist. */
-export function scoreVerdict(score: number): { color: string; verdict: string } {
-  if (score >= 66) return { color: '#3FB950', verdict: 'Well cited' };
-  if (score >= 33) return { color: '#E2A336', verdict: 'Partially visible' };
-  return { color: '#EB5757', verdict: 'Mostly invisible to AI' };
 }
