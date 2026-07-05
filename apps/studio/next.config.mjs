@@ -26,7 +26,6 @@ const nextConfig = {
     // Next's tracer misses the Prisma engine .so.node in pnpm's nested store, so force-copy the
     // whole generated-client dir (engine + schema) into every function that touches the DB.
     outputFileTracingIncludes: {
-      '/api/dbcheck': ['../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**/*'],
       '/api/waitlist': ['../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**/*'],
       '/api/lead': ['../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**/*'],
       '/api/scan': ['../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**/*'],
