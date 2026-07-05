@@ -55,6 +55,7 @@ const config: Config = {
       fontFamily: {
         display: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'Times New Roman', 'serif'],
         mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       borderRadius: {

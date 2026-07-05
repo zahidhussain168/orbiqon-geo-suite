@@ -480,6 +480,41 @@
   animation: scan-shimmer 1.5s linear infinite;
 }
 
+/* Lenis smooth scroll: recommended base styles so momentum + anchors behave. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Hero scroll cue: slowly rotating ring of text around a gently bouncing arrow. */
+@keyframes cue-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+.scroll-cue-ring {
+  animation: cue-spin 16s linear infinite;
+  transform-origin: center;
+}
+.scroll-cue-dot {
+  animation: cue-bob 1.8s ease-in-out infinite;
+}
+
 /* 3D scroll entrance: content rises out of the page on a subtle X-axis rotation. */
 @keyframes rise-3d {
   from {

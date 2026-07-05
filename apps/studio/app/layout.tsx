@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { Instrument_Serif } from 'next/font/google';
 import { brand } from '@orbiqon/config';
 import { Header } from '@/components/shell/Header';
 import { Footer } from '@/components/shell/Footer';
 import { TiltProvider } from '@/components/motion-tilt';
+import { SmoothScroll } from '@/components/motion-smooth';
 import './globals.css';
 
 const sans = GeistSans;
 const mono = GeistMono;
+// Editorial serif used only for the kinetic hero headline (serif -> sans morph on scroll).
+const serif = Instrument_Serif({
+  weight: '400',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+});
 
 const TITLE = `${brand.brandName}: are you cited by ChatGPT, Claude, Perplexity and Gemini?`;
 
@@ -43,7 +53,7 @@ const ORG_JSON_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <body>
         <script
           // Apply the saved theme before paint to avoid a flash. Default is light.
@@ -57,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
         />
+        <SmoothScroll />
         <TiltProvider />
         <Header />
         <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-14">{children}</main>

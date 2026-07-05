@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Search, ListChecks, Trophy, Repeat, Info } from 'lucide-react';
 import { TOOLS } from '@orbiqon/config';
 import { HeroChecker } from '@/components/marketing/HeroChecker';
+import { KineticHeadline } from '@/components/marketing/KineticHeadline';
+import { ScrollCue } from '@/components/marketing/ScrollCue';
 import { AnswerArtifact } from '@/components/marketing/AnswerArtifact';
 import { ScoreMockup, PromptGridMockup, CompetitorMockup } from '@/components/marketing/mockups';
 import { ToolsGrid } from '@/components/marketing/ToolsGrid';
@@ -76,9 +78,7 @@ export default function HomePage() {
                 <span className="chip border-brand-200 text-brand-700">
                   <Sparkles className="h-3.5 w-3.5" /> Diagnose. Fix. Manage.
                 </span>
-                <h1 className="mt-5 font-display text-5xl leading-[1.02] tracking-tight text-fg sm:text-7xl">
-                  When AI answers, are you <span className="mark mark-sweep">cited</span> or invisible?
-                </h1>
+                <KineticHeadline />
                 <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
                   See whether ChatGPT, Claude, Perplexity and Gemini recommend your brand, who they
                   name instead, and where you rank. Real sampled rates, never a fake yes or no.
@@ -92,6 +92,7 @@ export default function HomePage() {
               </Reveal>
             </div>
           </div>
+          <ScrollCue className="pointer-events-none absolute bottom-4 left-1/2 hidden -translate-x-1/2 lg:grid" />
         </section>
       </div>
 
