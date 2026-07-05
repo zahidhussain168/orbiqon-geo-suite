@@ -17,7 +17,7 @@ const TIERS = [
     note: 'No signup, unlimited',
     blurb: 'The free checks that show where AI ignores you.',
     features: ['AmICited multi-engine visibility check', 'Competitor reveal', 'Honest sampled rates'],
-    cta: { label: 'Check your visibility', href: '/check' },
+    cta: { label: 'Check my AI visibility free', href: '/check' },
     highlight: false,
     tag: 'Available now',
   },

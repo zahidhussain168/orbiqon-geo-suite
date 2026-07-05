@@ -40,7 +40,7 @@ export function FixCta({ scanId, brand }: { scanId: string | null; brand: string
       </p>
 
       {state === 'done' ? (
-        <p className="mt-4 flex items-center gap-2 text-sm font-medium text-emerald-700">
+        <p className="mt-4 flex items-center gap-2 text-sm font-medium text-verdict-good">
           <IconCheck className="h-4 w-4" /> You&apos;re on the list, we&apos;ll be in touch.
         </p>
       ) : (
@@ -62,7 +62,7 @@ export function FixCta({ scanId, brand }: { scanId: string | null; brand: string
         </form>
       )}
       {state === 'error' && (
-        <p role="alert" aria-live="assertive" className="mt-2 text-sm text-rose-600">
+        <p role="alert" aria-live="assertive" className="mt-2 text-sm text-verdict-low">
           Couldn&apos;t save that, please try again.
         </p>
       )}

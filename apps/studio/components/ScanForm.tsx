@@ -284,7 +284,7 @@ export function ScanForm({
         </MagneticButton>
 
         {error && (
-          <p role="alert" aria-live="assertive" className="text-sm text-rose-600">
+          <p role="alert" aria-live="assertive" className="text-sm text-verdict-low">
             {error}
           </p>
         )}

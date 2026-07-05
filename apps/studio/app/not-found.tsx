@@ -16,7 +16,7 @@ export default function NotFound() {
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/check" className="btn-primary px-5">
-          Check your AI visibility
+          Check my AI visibility free
           <ArrowRight className="h-4 w-4" />
         </Link>
         <Link href="/tools" className="btn-secondary">

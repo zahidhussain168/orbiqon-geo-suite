@@ -86,7 +86,7 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
               sampled {result.meta.samples}× each.
             </p>
             {result.meta.mock && (
-              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-verdict-mid/40 bg-verdict-mid/10 px-2.5 py-1 text-xs font-medium text-verdict-mid">
                 Demo data, add API keys to run live
               </span>
             )}
@@ -96,7 +96,7 @@ export function ResultsView({ result, onRerun, onNew }: Props) {
               </a>
               <button onClick={copySummary} className="btn-secondary">
                 {copied ? (
-                  <IconCheck className="h-4 w-4 text-emerald-600" />
+                  <IconCheck className="h-4 w-4 text-verdict-good" />
                 ) : (
                   <IconCopy className="h-4 w-4" />
                 )}
@@ -235,7 +235,7 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
         </span>
         <span
           className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-            cited ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+            cited ? 'bg-verdict-good/10 text-verdict-good' : 'bg-verdict-low/10 text-verdict-low'
           }`}
         >
           {cited ? <IconCheck className="h-3.5 w-3.5" /> : <IconX className="h-3.5 w-3.5" />}
@@ -261,7 +261,7 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-elevated">
           <div
             className={`h-full rounded-full transition-[width] duration-700 ease-out ${
-              cited ? 'bg-emerald-500' : 'bg-rose-400'
+              cited ? 'bg-verdict-good-graphic' : 'bg-verdict-low-graphic'
             }`}
             style={{ width: `${Math.max(pct, cited ? 6 : 0)}%` }}
           />
@@ -310,7 +310,7 @@ function EngineCard({ engine, brand }: { engine: EngineSummary; brand: string })
         </>
       )}
       {engine.kind === 'mock' && (
-        <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-amber-600/80">
+        <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-verdict-mid/80">
           demo data
         </p>
       )}
@@ -329,7 +329,7 @@ function ErrorCard({ engine }: { engine: EngineSummary }) {
           </span>
           {engine.displayName}
         </span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">
+        <span className="inline-flex items-center gap-1 rounded-full bg-verdict-mid/10 px-2.5 py-0.5 text-xs font-medium text-verdict-mid">
           <IconAlert className="h-3.5 w-3.5" /> Unreachable
         </span>
       </div>
@@ -389,14 +389,14 @@ function PromptMatrix({ result, shown }: { result: ScanResult; shown: EngineSumm
                 return (
                   <td key={e.engine} className="px-2 py-2.5 text-center">
                     {cell?.cited ? (
-                      <span className="inline-flex items-center gap-1 text-emerald-600">
+                      <span className="inline-flex items-center gap-1 text-verdict-good">
                         <IconCheck className="h-3.5 w-3.5" />
                         {cell.bestPosition != null && (
                           <span className="text-xs tabular-nums text-dim">#{cell.bestPosition}</span>
                         )}
                       </span>
                     ) : (
-                      <IconX className="mx-auto h-3.5 w-3.5 text-rose-300" />
+                      <IconX className="mx-auto h-3.5 w-3.5 text-verdict-low/60" />
                     )}
                   </td>
                 );

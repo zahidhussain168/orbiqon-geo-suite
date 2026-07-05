@@ -24,8 +24,8 @@ export function EmailCapture({ scanId }: { scanId: string | null }) {
 
   if (state === 'done') {
     return (
-      <div className="card flex items-center gap-3 border-emerald-200 bg-emerald-50 p-5 text-sm text-muted">
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700">
+      <div className="card flex items-center gap-3 border-verdict-good/30 bg-verdict-good/10 p-5 text-sm text-muted">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-verdict-good/15 text-verdict-good">
           <IconCheck />
         </span>
         Thanks, the full report is on its way to your inbox.
@@ -59,7 +59,7 @@ export function EmailCapture({ scanId }: { scanId: string | null }) {
         </button>
       </div>
       {state === 'error' && (
-        <p role="alert" aria-live="assertive" className="mt-2 text-sm text-rose-600">
+        <p role="alert" aria-live="assertive" className="mt-2 text-sm text-verdict-low">
           Couldn&apos;t save that, please try again.
         </p>
       )}
