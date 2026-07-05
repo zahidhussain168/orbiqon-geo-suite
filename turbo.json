@@ -2,6 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
     "MOCK_LLM",
+    "OPENROUTER_API_KEY",
+    "OPENROUTER_CHATGPT_MODEL",
+    "OPENROUTER_CLAUDE_MODEL",
+    "OPENROUTER_GEMINI_MODEL",
+    "OPENROUTER_PERPLEXITY_MODEL",
+    "OPENROUTER_SITE_URL",
+    "OPENROUTER_WEB_SEARCH",
+    "OPENROUTER_PROMPTGEN_MODEL",
     "OPENAI_API_KEY",
     "OPENAI_MODEL",
     "ANTHROPIC_API_KEY",
@@ -15,7 +23,9 @@
     "MAX_SAMPLES",
     "SCAN_RATE_LIMIT",
     "DATABASE_URL",
-    "DIRECT_URL"
+    "DIRECT_URL",
+    "RESEND_API_KEY",
+    "EMAIL_FROM"
   ],
   "tasks": {
     "build": {
