@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { loadScan } from '@/lib/scan-service';
 import { ResultsView } from '@/components/ResultsView';
 import { EmailCapture } from '@/components/EmailCapture';
-import { scoreVerdict } from '@/components/ScoreGauge';
+import { scoreVerdict } from '@/lib/verdict';
 
 export const dynamic = 'force-dynamic';
 
