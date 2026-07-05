@@ -69,4 +69,4 @@ corepack pnpm dev
 - Citation is always reported as a **rate from multiple samples**, never a fake yes/no.
 - We never claim schema / llms.txt "gets you cited." Not relevant to this tool, but it's the
   suite's rule.
-- AI answers swing over time — nothing here guarantees inclusion.
+- AI answers swing over time - nothing here guarantees inclusion.
