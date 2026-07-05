@@ -3,7 +3,7 @@
 Tools that help a brand get **named and cited inside AI answers** (ChatGPT, Claude, Perplexity,
 Gemini, Google AI Overviews).
 
-This monorepo starts with **Tool 1 — AmICited**: a free, top-of-funnel checker. Type a brand +
+This monorepo starts with **Tool 1 - AmICited**: a free, top-of-funnel checker. Type a brand +
 a few prompts, and it tells you whether the AIs cite you, who gets named instead, and where you
 rank.
 
@@ -20,8 +20,8 @@ They are framework-agnostic and contain **no app-specific code**:
 
 Supporting packages / apps:
 
-- **`@orbiqon/db`** — shared Prisma client + schema (Supabase Postgres).
-- **`apps/amicited`** — Next.js 14 (App Router) front-end. A thin UI over the two core packages.
+- **`@orbiqon/db`** - shared Prisma client + schema (Supabase Postgres).
+- **`apps/amicited`** - Next.js 14 (App Router) front-end. A thin UI over the two core packages.
 
 ```
 packages/query-engine   ← reusable core
@@ -50,7 +50,7 @@ corepack pnpm dev
   flow offline. Set `MOCK_LLM=true` or just leave the API keys blank.
 - **Live mode**: fill in `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`,
   `PERPLEXITY_API_KEY` in `.env` and set `MOCK_LLM=false`. Google AI Overviews + ChatGPT web UI
-  are stubbed ("coming soon") in this pass — headless scraping is deferred.
+  are stubbed ("coming soon") in this pass - headless scraping is deferred.
 - **Persistence**: fill `DATABASE_URL` / `DIRECT_URL` (Supabase). Without them, scans still run
   and render; they just aren't saved.
 
