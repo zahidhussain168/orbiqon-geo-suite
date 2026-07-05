@@ -435,6 +435,51 @@
     transform: translateX(-50%);
   }
 }
+/* Scan progress: the "live interrogation" loading state. */
+@keyframes scan-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scan-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+/* Radar-ping ring behind an active engine avatar. */
+@keyframes scan-ping {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.animate-scan-in {
+  animation: scan-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.scan-ping {
+  animation: scan-ping 2.2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+/* Moving sheen swept across the brand-filled progress bar. */
+.scan-sheen {
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  background-size: 45% 100%;
+  background-repeat: no-repeat;
+  animation: scan-shimmer 1.5s linear infinite;
+}
+
 /* 3D scroll entrance: content rises out of the page on a subtle X-axis rotation. */
 @keyframes rise-3d {
   from {
