@@ -526,23 +526,25 @@ html.lenis body {
   pointer-events: none;
   overflow: hidden;
 }
-/* Blueprint data grid, faded at the edges so it reads as a field, not a tiled wall. */
+/* Blueprint data grid — faded at the edges and slowly drifting so it reads as a live field. */
 .section-fx-grid,
 .section-fx-mesh,
 .section-fx-scan {
   background-image:
-    linear-gradient(rgb(var(--ch-brand-600) / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.06) 1px, transparent 1px);
+    linear-gradient(rgb(var(--ch-brand-600) / 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.1) 1px, transparent 1px);
   background-size: 46px 46px;
-  -webkit-mask-image: radial-gradient(ellipse 78% 60% at 50% 42%, #000 34%, transparent 100%);
-  mask-image: radial-gradient(ellipse 78% 60% at 50% 42%, #000 34%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 84% 66% at 50% 42%, #000 34%, transparent 100%);
+  mask-image: radial-gradient(ellipse 84% 66% at 50% 42%, #000 34%, transparent 100%);
+  animation: fx-pan 24s linear infinite;
 }
-/* Node-dot matrix. */
+/* Node-dot matrix, drifting. */
 .section-fx-dots {
-  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.14) 1.1px, transparent 1.4px);
-  background-size: 24px 24px;
-  -webkit-mask-image: radial-gradient(ellipse 82% 70% at 50% 45%, #000 38%, transparent 100%);
-  mask-image: radial-gradient(ellipse 82% 70% at 50% 45%, #000 38%, transparent 100%);
+  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.22) 1.3px, transparent 1.7px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 84% 72% at 50% 45%, #000 38%, transparent 100%);
+  mask-image: radial-gradient(ellipse 84% 72% at 50% 45%, #000 38%, transparent 100%);
+  animation: fx-pan-dots 30s linear infinite;
 }
 /* Drifting aurora glow used on its own (aurora) or over the grid (mesh). */
 .section-fx-aurora::before,
@@ -552,25 +554,25 @@ html.lenis body {
   content: '';
   position: absolute;
   border-radius: 9999px;
-  filter: blur(72px);
+  filter: blur(60px);
 }
 .section-fx-aurora::before,
 .section-fx-mesh::before {
-  width: 44%;
-  height: 150%;
-  left: -8%;
+  width: 46%;
+  height: 165%;
+  left: -10%;
   top: -60%;
-  background: radial-gradient(circle, rgb(var(--ch-brand-600) / 0.28), transparent 70%);
-  animation: fx-drift-a 20s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(var(--ch-brand-600) / 0.45), transparent 66%);
+  animation: fx-drift-a 13s ease-in-out infinite;
 }
 .section-fx-aurora::after,
 .section-fx-mesh::after {
-  width: 40%;
-  height: 150%;
-  right: -8%;
+  width: 42%;
+  height: 165%;
+  right: -10%;
   bottom: -70%;
-  background: radial-gradient(circle, rgb(8 145 178 / 0.22), transparent 70%);
-  animation: fx-drift-b 26s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(8 145 178 / 0.36), transparent 66%);
+  animation: fx-drift-b 17s ease-in-out infinite;
 }
 /* Scan beam that sweeps down the section. */
 .section-fx-scan::after {
@@ -578,10 +580,20 @@ html.lenis body {
   position: absolute;
   left: 0;
   right: 0;
-  height: 160px;
-  top: -160px;
-  background: linear-gradient(to bottom, transparent, rgb(var(--ch-brand-600) / 0.09), transparent);
-  animation: fx-scan 7s linear infinite;
+  height: 220px;
+  top: -220px;
+  background: linear-gradient(to bottom, transparent, rgb(var(--ch-brand-600) / 0.18), transparent);
+  animation: fx-scan 4.5s linear infinite;
+}
+@keyframes fx-pan {
+  to {
+    background-position: 46px 46px;
+  }
+}
+@keyframes fx-pan-dots {
+  to {
+    background-position: 26px 26px;
+  }
 }
 @keyframes fx-drift-a {
   0%,
@@ -589,7 +601,7 @@ html.lenis body {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(6%, 6%, 0) scale(1.12);
+    transform: translate3d(11%, 9%, 0) scale(1.2);
   }
 }
 @keyframes fx-drift-b {
@@ -598,12 +610,12 @@ html.lenis body {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(-6%, -5%, 0) scale(1.15);
+    transform: translate3d(-11%, -8%, 0) scale(1.22);
   }
 }
 @keyframes fx-scan {
   to {
-    transform: translateY(calc(100vh + 320px));
+    transform: translateY(calc(100vh + 440px));
   }
 }
 /* Dark mode: the same indigo reads as a neon field, so lift the lines a touch. */
@@ -611,11 +623,11 @@ html.lenis body {
 .dark .section-fx-mesh,
 .dark .section-fx-scan {
   background-image:
-    linear-gradient(rgb(var(--ch-brand-600) / 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.12) 1px, transparent 1px);
+    linear-gradient(rgb(var(--ch-brand-600) / 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.16) 1px, transparent 1px);
 }
 .dark .section-fx-dots {
-  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.22) 1.1px, transparent 1.4px);
+  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.3) 1.3px, transparent 1.7px);
 }
 
 /* HUD corner brackets: a targeting-frame accent for the card sections. */
@@ -623,8 +635,18 @@ html.lenis body {
   position: absolute;
   width: 15px;
   height: 15px;
-  border: 1.5px solid rgb(var(--ch-brand-600) / 0.45);
+  border: 1.5px solid rgb(var(--ch-brand-600) / 0.5);
   pointer-events: none;
+  animation: fx-hud-pulse 3s ease-in-out infinite;
+}
+@keyframes fx-hud-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .hud-tl {
   top: 12px;
