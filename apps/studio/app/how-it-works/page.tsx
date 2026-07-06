@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Gauge, Wrench, LayoutDashboard } from 'lucide-react';
 import { LAYERS, toolsByLayer } from '@orbiqon/config';
+import { SectionFx, HudCorners } from '@/components/marketing/SectionFx';
 
 export const metadata: Metadata = {
   title: 'How it works: diagnose, fix, manage',
@@ -28,7 +29,8 @@ export default function HowItWorksPage() {
       </header>
 
       {/* Visual flow */}
-      <section className="grid items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
+      <section className="relative isolate grid items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
+        <SectionFx variant="grid" />
         {LAYERS.map((layer, i) => {
           const Icon = ICON[layer.id];
           return (
@@ -63,7 +65,9 @@ export default function HowItWorksPage() {
       </section>
 
       {/* Honesty */}
-      <section className="card p-6 sm:p-8">
+      <section className="card relative isolate overflow-hidden p-6 sm:p-8">
+        <SectionFx variant="scan" />
+        <HudCorners />
         <h2 className="text-xl font-semibold tracking-tight text-ink">Why we report rates</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
           Ask an AI the same question twice and you can get different brands. So we sample every
@@ -74,7 +78,8 @@ export default function HowItWorksPage() {
         </p>
       </section>
 
-      <section className="text-center">
+      <section className="relative isolate overflow-hidden py-8 text-center">
+        <SectionFx variant="aurora" />
         <Link href="/check" className="btn-primary px-6">
           Start with a free check
           <ArrowRight className="h-4 w-4" />

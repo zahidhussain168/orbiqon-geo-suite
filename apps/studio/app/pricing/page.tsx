@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Minus } from 'lucide-react';
+import { SectionFx } from '@/components/marketing/SectionFx';
 
 export const metadata: Metadata = {
   title: 'Pricing: free to diagnose, fair to fix',
@@ -55,7 +56,8 @@ const COMPARISON: { label: string; diagnose: boolean; fix: boolean; agency: bool
 export default function PricingPage() {
   return (
     <div className="space-y-16">
-      <header className="max-w-2xl">
+      <header className="relative isolate overflow-hidden max-w-2xl">
+        <SectionFx variant="aurora" />
         <p className="eyebrow">Pricing</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">
           Free to diagnose. Fair to fix.
@@ -66,7 +68,8 @@ export default function PricingPage() {
         </p>
       </header>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="relative isolate grid gap-4 lg:grid-cols-3">
+        <SectionFx variant="mesh" />
         {TIERS.map((tier) => (
           <div
             key={tier.name}
@@ -103,7 +106,8 @@ export default function PricingPage() {
       </div>
 
       {/* Honest comparison table */}
-      <section>
+      <section className="relative isolate">
+        <SectionFx variant="grid" />
         <h2 className="text-2xl font-semibold tracking-tight text-ink">What is included</h2>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[560px] text-sm">

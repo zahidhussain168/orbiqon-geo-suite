@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import { WaitlistForm } from '@/components/marketing/WaitlistForm';
+import { SectionFx, HudCorners } from '@/components/marketing/SectionFx';
 
 export const metadata: Metadata = {
   title: 'For Agencies: white-label GEO tools for clients',
@@ -41,7 +42,8 @@ export default function AgenciesPage() {
       </header>
 
       {/* The math */}
-      <section>
+      <section className="relative isolate">
+        <SectionFx variant="dots" />
         <h2 className="text-2xl font-semibold tracking-tight text-ink">The math is simple</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {MATH.map((m) => (
@@ -64,7 +66,8 @@ export default function AgenciesPage() {
       </section>
 
       {/* What you get */}
-      <section>
+      <section className="relative isolate">
+        <SectionFx variant="grid" />
         <h2 className="text-2xl font-semibold tracking-tight text-ink">What you get</h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {INCLUDED.map((item) => (
@@ -77,7 +80,9 @@ export default function AgenciesPage() {
       </section>
 
       {/* Waitlist */}
-      <section className="card p-6 sm:p-8">
+      <section className="card relative isolate overflow-hidden p-6 sm:p-8">
+        <SectionFx variant="scan" />
+        <HudCorners />
         <span className="chip">Founding agencies</span>
         <h2 className="mt-4 text-xl font-semibold tracking-tight text-ink">
           Get in before public launch
