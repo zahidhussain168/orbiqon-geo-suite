@@ -515,6 +515,142 @@ html.lenis body {
   animation: cue-bob 1.8s ease-in-out infinite;
 }
 
+/* ── Futuristic section textures ─────────────────────────────────────────────
+   A cohesive, low-opacity kit (data grid, drifting aurora, scan beam, node dots)
+   layered behind section content. Indigo + a hint of cyan so it reads as an AI
+   answer-engine control surface without hurting legibility. */
+.section-fx {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* Blueprint data grid, faded at the edges so it reads as a field, not a tiled wall. */
+.section-fx-grid,
+.section-fx-mesh,
+.section-fx-scan {
+  background-image:
+    linear-gradient(rgb(var(--ch-brand-600) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 78% 60% at 50% 42%, #000 34%, transparent 100%);
+  mask-image: radial-gradient(ellipse 78% 60% at 50% 42%, #000 34%, transparent 100%);
+}
+/* Node-dot matrix. */
+.section-fx-dots {
+  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.14) 1.1px, transparent 1.4px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 82% 70% at 50% 45%, #000 38%, transparent 100%);
+  mask-image: radial-gradient(ellipse 82% 70% at 50% 45%, #000 38%, transparent 100%);
+}
+/* Drifting aurora glow used on its own (aurora) or over the grid (mesh). */
+.section-fx-aurora::before,
+.section-fx-aurora::after,
+.section-fx-mesh::before,
+.section-fx-mesh::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+}
+.section-fx-aurora::before,
+.section-fx-mesh::before {
+  width: 44%;
+  height: 150%;
+  left: -8%;
+  top: -60%;
+  background: radial-gradient(circle, rgb(var(--ch-brand-600) / 0.28), transparent 70%);
+  animation: fx-drift-a 20s ease-in-out infinite;
+}
+.section-fx-aurora::after,
+.section-fx-mesh::after {
+  width: 40%;
+  height: 150%;
+  right: -8%;
+  bottom: -70%;
+  background: radial-gradient(circle, rgb(8 145 178 / 0.22), transparent 70%);
+  animation: fx-drift-b 26s ease-in-out infinite;
+}
+/* Scan beam that sweeps down the section. */
+.section-fx-scan::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 160px;
+  top: -160px;
+  background: linear-gradient(to bottom, transparent, rgb(var(--ch-brand-600) / 0.09), transparent);
+  animation: fx-scan 7s linear infinite;
+}
+@keyframes fx-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, 6%, 0) scale(1.12);
+  }
+}
+@keyframes fx-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6%, -5%, 0) scale(1.15);
+  }
+}
+@keyframes fx-scan {
+  to {
+    transform: translateY(calc(100vh + 320px));
+  }
+}
+/* Dark mode: the same indigo reads as a neon field, so lift the lines a touch. */
+.dark .section-fx-grid,
+.dark .section-fx-mesh,
+.dark .section-fx-scan {
+  background-image:
+    linear-gradient(rgb(var(--ch-brand-600) / 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ch-brand-600) / 0.12) 1px, transparent 1px);
+}
+.dark .section-fx-dots {
+  background-image: radial-gradient(rgb(var(--ch-brand-600) / 0.22) 1.1px, transparent 1.4px);
+}
+
+/* HUD corner brackets: a targeting-frame accent for the card sections. */
+.hud-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid rgb(var(--ch-brand-600) / 0.45);
+  pointer-events: none;
+}
+.hud-tl {
+  top: 12px;
+  left: 12px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.hud-tr {
+  top: 12px;
+  right: 12px;
+  border-left: 0;
+  border-bottom: 0;
+}
+.hud-bl {
+  bottom: 12px;
+  left: 12px;
+  border-right: 0;
+  border-top: 0;
+}
+.hud-br {
+  bottom: 12px;
+  right: 12px;
+  border-left: 0;
+  border-top: 0;
+}
+
 /* 3D scroll entrance: content rises out of the page on a subtle X-axis rotation. */
 @keyframes rise-3d {
   from {

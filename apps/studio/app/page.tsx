@@ -7,6 +7,7 @@ import { ScrollCue } from '@/components/marketing/ScrollCue';
 import { AnswerArtifact } from '@/components/marketing/AnswerArtifact';
 import { ScoreMockup, PromptGridMockup, CompetitorMockup } from '@/components/marketing/mockups';
 import { ToolsGrid } from '@/components/marketing/ToolsGrid';
+import { SectionFx, HudCorners } from '@/components/marketing/SectionFx';
 import { Reveal, Tilt } from '@/components/motion';
 
 const STEPS = [
@@ -100,7 +101,8 @@ export default function HomePage() {
           only shows through the hero above. */}
       <div className="curtain space-y-24 pt-24 sm:space-y-32 sm:pt-32">
       {/* Social proof stat band */}
-      <Reveal as="section" className="border-y border-hair py-14 text-center">
+      <Reveal as="section" className="relative isolate overflow-hidden border-y border-hair py-14 text-center">
+        <SectionFx variant="aurora" />
         <p className="mx-auto max-w-3xl text-2xl font-normal leading-snug tracking-tight text-fg sm:text-[2rem] sm:leading-[1.2]">
           Millions of buyers now ask AI to recommend a tool before they ever open Google.{' '}
           <span className="brand-emphasis">If it doesn&rsquo;t name you, you&rsquo;re not in the room.</span>
@@ -111,7 +113,8 @@ export default function HomePage() {
       </Reveal>
 
       {/* Feature rows: product-led, alternating */}
-      <section className="space-y-24 sm:space-y-28">
+      <section className="relative isolate space-y-24 sm:space-y-28">
+        <SectionFx variant="grid" />
         <FeatureRow
           eyebrow="The score"
           title="One number you can actually trust"
@@ -147,7 +150,9 @@ export default function HomePage() {
 
       {/* The rivals: a full-width stacked panel, deliberately not another split row
           (the third consecutive left-right split reads as templated) */}
-      <Reveal as="section" className="card overflow-hidden">
+      <Reveal as="section" className="card relative isolate overflow-hidden">
+        <SectionFx variant="grid" />
+        <HudCorners />
         <div className="grid gap-8 p-8 sm:p-10">
           <div className="max-w-2xl">
             <p className="eyebrow">The rivals</p>
@@ -178,7 +183,8 @@ export default function HomePage() {
       </Reveal>
 
       {/* How it works, numbered */}
-      <section>
+      <section className="relative isolate">
+        <SectionFx variant="dots" />
         <Reveal className="max-w-2xl">
           <p className="eyebrow">How it works</p>
           <h2 className="mt-3 text-3xl tracking-tight text-fg sm:text-4xl">
@@ -203,7 +209,8 @@ export default function HomePage() {
       </section>
 
       {/* The suite */}
-      <section>
+      <section className="relative isolate">
+        <SectionFx variant="mesh" />
         <Reveal className="max-w-2xl">
           <h2 className="text-3xl tracking-tight text-fg sm:text-4xl">
             One free check, then the tools to actually fix it
@@ -219,7 +226,9 @@ export default function HomePage() {
       </section>
 
       {/* Methodology: the honesty that makes the number worth trusting */}
-      <Reveal as="section" className="card overflow-hidden">
+      <Reveal as="section" className="card relative isolate overflow-hidden">
+        <SectionFx variant="scan" />
+        <HudCorners />
         <div className="grid gap-8 p-8 sm:grid-cols-[1.1fr_0.9fr] sm:p-12">
           <div>
             <span className="grid h-11 w-11 place-items-center rounded-lg border border-hair bg-surface-alt text-brand-700">
@@ -262,7 +271,8 @@ export default function HomePage() {
       </Reveal>
 
       {/* Trust / positioning band */}
-      <Reveal as="section" className="text-center">
+      <Reveal as="section" className="relative isolate overflow-hidden py-6 text-center">
+        <SectionFx variant="aurora" />
         <p className="mx-auto max-w-2xl text-xl font-medium leading-snug text-fg sm:text-2xl">
           Built by operators who got tired of dashboards that only watch. This one tells you what is
           wrong, then hands you the fix.
@@ -273,8 +283,10 @@ export default function HomePage() {
       </Reveal>
 
       {/* Final CTA */}
-      <Reveal as="section" className="relative overflow-hidden rounded-lg border border-hair bg-surface-alt/70">
-        <div className="dotgrid relative flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
+      <Reveal as="section" className="relative isolate overflow-hidden rounded-lg border border-hair bg-surface-alt/70">
+        <SectionFx variant="mesh" />
+        <HudCorners />
+        <div className="relative flex flex-col items-start gap-6 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
           <div>
             <h2 className="max-w-xl text-3xl tracking-tight text-fg sm:text-4xl">
               Find out if AI recommends you. Free, in about a minute.
